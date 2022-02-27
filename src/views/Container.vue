@@ -21,23 +21,23 @@
 
 <script>
 import { objPageBlockListTemp } from "@/config/pageBlockList";
-import DetailCity from "@/views/DetailCity";
 import DetailCss from "@/views/DetailCss";
 import DetailEmpty from "@/views/DetailEmpty";
 import DetailJs from "@/views/DetailJs";
 import DetailQwRobot from "@/views/DetailQwRobot";
-import DetailTime from "@/views/DetailTime";
+import DetailToolCity from "@/views/DetailToolCity";
+import DetailToolTime from "@/views/DetailToolTime";
 import PageContent from "@/views/PageContent";
 
 export default {
   name: "Container",
   components: {
-    DetailCity,
     DetailCss,
     DetailEmpty,
     DetailJs,
     DetailQwRobot,
-    DetailTime,
+    DetailToolCity,
+    DetailToolTime,
     PageContent,
   },
   props: {

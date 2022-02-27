@@ -19,7 +19,7 @@
           placement="top"
         >
           <el-button type="primary">
-            <span class="iconfont icon-experiment" />
+            <span class="iconfont icon-copy" />
           </el-button>
         </el-tooltip>
 
@@ -30,7 +30,7 @@
           placement="top"
         >
           <el-button type="primary">
-            <span class="iconfont icon-experiment" />
+            <span class="iconfont icon-code2" />
           </el-button>
         </el-tooltip>
 
@@ -42,8 +42,8 @@
         >
           <el-button type="primary" @click="handleFoldClick">
             <el-icon size="16px">
-              <span v-if="isFold" class="iconfont icon-experiment" />
-              <span v-else class="iconfont icon-bulb" />
+              <span v-if="isFold" class="iconfont icon-folder" />
+              <span v-else class="iconfont icon-folder-open" />
             </el-icon>
           </el-button>
         </el-tooltip>

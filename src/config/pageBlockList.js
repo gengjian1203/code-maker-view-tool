@@ -4,13 +4,13 @@ export const objPageBlockListTemp = {
       title: "时间相关",
       icon: "icon-Field-time",
       desc: "时间相关转换",
-      type: "DetailTime",
+      type: "DetailToolTime",
     },
     {
       title: "省市查询",
       icon: "icon-bank",
       desc: "省份城市关联查询",
-      type: "DetailCity",
+      type: "DetailToolCity",
     },
   ],
   PageCss: [
@@ -56,6 +56,12 @@ export const objPageBlockListTemp = {
       title: "阻止事件",
       icon: "icon-send",
       desc: "阻止冒泡时间以及默认行为",
+      type: "DetailJs",
+    },
+    {
+      title: "全选图标",
+      icon: "icon-select",
+      desc: "将iconfont图标库全选到购物车",
       type: "DetailJs",
     },
   ],

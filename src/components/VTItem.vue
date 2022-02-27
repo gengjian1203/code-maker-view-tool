@@ -1,11 +1,13 @@
 <template>
   <div class="flex-start-h vt-item-wrap">
-    <div class="vt-item-label">
-      {{ label }}
+    <div class="vt-item-label">{{ label }}：</div>
+    <!-- 文字展示 -->
+    <div v-if="type === 'text'" class="flex-start-h vt-item-text">
+      <slot name="text"></slot>
     </div>
     <!-- 自定义 -->
-    <div v-if="type === 'custom'" class="vt-item-body">
-      <slot name="body"></slot>
+    <div v-if="type === 'custom'" class="vt-item-custom">
+      <slot name="custom"></slot>
     </div>
   </div>
 </template>
@@ -27,11 +29,20 @@ export default {
 
 <style lang="less" scoped>
 .vt-item-wrap {
+  margin-bottom: var(--margin-base);
+
   .vt-item-label {
     margin-right: var(--margin-base);
+    font-weight: 500;
   }
 
-  .vt-item-body {
+  .vt-item-text {
+    color: var(--color-text-primary);
+    font-size: var(--font-size-mini);
+    align-items: center;
+  }
+
+  .vt-item-custom {
   }
 }
 </style>
