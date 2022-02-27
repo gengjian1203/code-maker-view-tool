@@ -12,17 +12,30 @@
         type="primary"
         size="small"
       >
-        <el-tooltip effect="dark" content="复制代码" placement="top">
-          <el-button type="primary">
-            <span class="iconfont icon-experiment" />
-          </el-button>
-        </el-tooltip>
-        <el-tooltip effect="dark" content="展示代码" placement="top">
-          <el-button type="primary">
-            <span class="iconfont icon-experiment" />
-          </el-button>
-        </el-tooltip>
         <el-tooltip
+          v-if="isShowBtnTipCopy"
+          effect="dark"
+          content="复制代码"
+          placement="top"
+        >
+          <el-button type="primary">
+            <span class="iconfont icon-experiment" />
+          </el-button>
+        </el-tooltip>
+
+        <el-tooltip
+          v-if="isShowBtnTipCode"
+          effect="dark"
+          content="展示代码"
+          placement="top"
+        >
+          <el-button type="primary">
+            <span class="iconfont icon-experiment" />
+          </el-button>
+        </el-tooltip>
+
+        <el-tooltip
+          v-if="isShowBtnTipFold"
           effect="dark"
           :content="isFold ? '收起' : '展开'"
           placement="top"
@@ -46,15 +59,39 @@
 
 <script>
 export default {
-  name: "VTModule",
+  name: "VTCardModule",
   components: {},
   props: {
-    title: { type: String, default: "" },
+    title: {
+      type: String,
+      default: "",
+    },
+    btnTipList: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
   data() {
     return {
       isFold: true,
+      isShowBtnTipCopy: false,
+      isShowBtnTipCode: false,
+      isShowBtnTipFold: false,
     };
+  },
+  watch: {
+    btnTipList: {
+      handler(newValue) {
+        // console.log("watch btnTipList", newValue, oldValue);
+        this.isShowBtnTipCopy = newValue.includes("copy");
+        this.isShowBtnTipCode = newValue.includes("code");
+        this.isShowBtnTipFold = newValue.includes("fold");
+      },
+      immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听，这时候就能监测到a值变化
+    },
   },
   methods: {
     handleFoldClick() {

@@ -3,8 +3,8 @@ import { createRouter, createWebHashHistory } from "vue-router";
 const routes = [
   {
     path: "/",
-    name: "/PageMain",
-    component: () => import("@/views/PageMain.vue"),
+    name: "/Container",
+    component: () => import("@/views/Container.vue"),
     meta: {
       title: "常用工具",
     },

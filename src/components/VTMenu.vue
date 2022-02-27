@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    class="menu-wrap text-noselect"
     active-text-color="var(--color-primary)"
     background-color="#545c64"
     text-color="#fff"
@@ -23,7 +24,12 @@ export default {
   name: "VTMenu",
   components: {},
   props: {
-    arrMenuList: Array,
+    arrMenuList: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
   data() {
     return {
@@ -42,7 +48,7 @@ export default {
   computed: {
     isCollapse() {
       // console.log("screenWidth", this.screenWidth);
-      return this.screenWidth < 450;
+      return this.screenWidth < 500;
     },
   },
   methods: {
@@ -67,11 +73,14 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.menu-item {
-  box-sizing: border-box;
-  padding: 0 var(--padding-md);
-  .menu-icon {
-    margin-right: var(--margin-mini);
+.menu-wrap {
+  min-height: 100vh;
+  .menu-item {
+    box-sizing: border-box;
+    padding: 0 var(--padding-md);
+    .menu-icon {
+      margin-right: var(--margin-mini);
+    }
   }
 }
 </style>

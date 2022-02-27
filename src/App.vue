@@ -1,14 +1,12 @@
 <template>
   <el-container class="app-wrap">
     <!-- 侧边导航 -->
-    <!-- <el-aside class="app-aside"> -->
     <el-scrollbar
       style="width: auto; height: 100%"
       wrap-style="width: 100%; height: 100%; box-sizing: border-box;"
     >
       <v-t-menu :arrMenuList="arrMenuList" @onMenuChange="handleMenuChange" />
     </el-scrollbar>
-    <!-- </el-aside> -->
     <!-- 内容 -->
     <el-container class="app-body">
       <el-scrollbar
@@ -16,36 +14,32 @@
         wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: 12px;"
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
-        <page-main />
+        <container :strPageType="strActiveMenuPageType" />
       </el-scrollbar>
     </el-container>
-    <!-- 底部页脚 -->
-    <!-- <el-footer>
-      <p>Footer</p>
-    </el-footer> -->
   </el-container>
 </template>
 
 <script>
 import VTMenu from "@/components/VTMenu";
-import PageMain from "@/views/PageMain";
-import { arrMenuList } from "@/config/index";
+import { arrMenuListTemp } from "@/config/menuList";
+import Container from "@/views/Container";
 
 export default {
   components: {
     VTMenu,
-    PageMain,
+    Container,
   },
   data() {
     return {
-      strActiveMenuKey: "",
-      arrMenuList: arrMenuList,
+      strActiveMenuPageType: "",
+      arrMenuList: arrMenuListTemp,
     };
   },
   methods: {
     handleMenuChange(item) {
       console.log("handleMenuChange", item);
-      this.strActiveMenuKey = item.key;
+      this.strActiveMenuPageType = item.type;
     },
   },
 };
