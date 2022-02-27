@@ -1,7 +1,7 @@
 <template>
   <v-t-wrap-detail :title="title">
     <template #body>
-      <div>empty.......</div>
+      <div>DetailJs.......</div>
     </template>
   </v-t-wrap-detail>
 </template>
@@ -10,7 +10,7 @@
 import VTWrapDetail from "@/components/VTWrapDetail";
 
 export default {
-  name: "DetailEmpty",
+  name: "DetailJs",
   components: {
     VTWrapDetail,
   },
@@ -28,6 +28,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.detail-empty-wrap {
+.detail-js-wrap {
 }
 </style>

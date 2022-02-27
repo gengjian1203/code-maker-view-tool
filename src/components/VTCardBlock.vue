@@ -1,12 +1,12 @@
 <template>
   <el-card
     shadow="hover"
-    class="flex-center-v text-noselect vt-block-wrap"
+    class="flex-start-v text-noselect vt-block-wrap"
     @click="handleCardBlockClick"
   >
     <div class="flex-center-h vt-block-title">{{ info?.title }}</div>
     <div :class="`flex-center-h iconfont ${info?.icon} vt-block-icon`"></div>
-    <div class="flex-center-h vt-block-desc">{{ info?.desc }}</div>
+    <div class="flex-center-h text-center vt-block-desc">{{ info?.desc }}</div>
   </el-card>
 </template>
 
@@ -43,17 +43,20 @@ export default {
   align-items: center;
 
   .vt-block-title {
+    margin-top: var(--margin-base);
     font-size: var(--font-size-normal);
     font-weight: 500;
+    color: var(--color-gray-2);
   }
 
   .vt-block-icon {
-    margin-top: var(--margin-mini);
+    margin-top: var(--margin-base);
     font-size: var(--font-size-md);
+    color: var(--color-gray-3);
   }
 
   .vt-block-desc {
-    margin-top: var(--margin-mini);
+    margin-top: var(--margin-base);
     font-size: var(--font-size-mini);
     color: var(--color-gray-4);
   }

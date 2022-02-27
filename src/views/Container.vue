@@ -2,31 +2,53 @@
   <div class="container-wrap">
     <!-- <div>{{ objPageDetailInfo?.type || strPageType }}</div> -->
     <!-- <div>{{ objPageDetailInfo?.title }}</div> -->
+    <!-- <div>{{ JSON.stringify(objPageBlockList) }}</div> -->
+    <!-- 卡片页面 -->
+    <page-content
+      v-if="!objPageDetailInfo?.type"
+      :arrPageBlockList="objPageBlockList[strPageType]"
+      @onCardBlockClick="handleCardBlockClick"
+    />
+    <!-- 详情页面 -->
     <component
-      :is="objPageDetailInfo?.type || strPageType"
+      v-else
+      :is="objPageDetailInfo?.type"
       :title="objPageDetailInfo?.title"
       @onDetailBackClick="handleDetailBackClick"
-      @onCardBlockClick="handleCardBlockClick"
     />
   </div>
 </template>
 
 <script>
+import { objPageBlockListTemp } from "@/config/pageBlockList";
+import DetailCity from "@/views/DetailCity";
+import DetailCss from "@/views/DetailCss";
 import DetailEmpty from "@/views/DetailEmpty";
+import DetailJs from "@/views/DetailJs";
+import DetailQwRobot from "@/views/DetailQwRobot";
 import DetailTime from "@/views/DetailTime";
-import PageTool from "@/views/PageTool";
+import PageContent from "@/views/PageContent";
 
 export default {
   name: "Container",
-  components: { DetailEmpty, DetailTime, PageTool },
+  components: {
+    DetailCity,
+    DetailCss,
+    DetailEmpty,
+    DetailJs,
+    DetailQwRobot,
+    DetailTime,
+    PageContent,
+  },
   props: {
     strPageType: {
       type: String,
-      default: "PageEmpty",
+      default: "",
     },
   },
   data() {
     return {
+      objPageBlockList: objPageBlockListTemp,
       objPageDetailInfo: {},
     };
   },

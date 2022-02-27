@@ -19,8 +19,6 @@ app
   .use(ElementPlus, { size: "small", zIndex: 3000 })
   .mount("#app");
 
-// console.log("ElIconModules", ElIconModules);
-
 //  统一注册el-icon图标
 for (const iconName in ElIconModules) {
   if (Reflect.has(ElIconModules, iconName)) {
@@ -28,3 +26,32 @@ for (const iconName in ElIconModules) {
     app.component(iconName, item);
   }
 }
+
+// 不稳定暂不使用
+// // 统一注册全局组件
+// const requireComponents = require.context(
+//   "./components/", // 想要全局注册的组件父文件夹
+//   false, // 遍历文件夹（如果你的组件是被一个个文件夹包裹的话）
+//   /\w+\.vue$/ // 匹配vue后缀的文件
+// );
+// requireComponents.keys().forEach((fileName) => {
+//   const componentConfig = requireComponents(fileName); // 获取组件
+//   app.component(
+//     componentConfig.default.name,
+//     componentConfig.default || componentConfig
+//   ); // 全局注册组件（componentConfig.default.name：组件的名称，componentConfig.default：组件本身）
+// });
+
+// // 统一注册页面组件
+// const requirePages = require.context(
+//   "./views/", // 想要全局注册的组件父文件夹
+//   false, // 遍历文件夹（如果你的组件是被一个个文件夹包裹的话）
+//   /\w+\.vue$/ // 匹配vue后缀的文件
+// );
+// requirePages.keys().forEach((fileName) => {
+//   const componentConfig = requirePages(fileName); // 获取组件
+//   app.component(
+//     componentConfig.default.name,
+//     componentConfig.default || componentConfig
+//   ); // 全局注册组件（componentConfig.default.name：组件的名称，componentConfig.default：组件本身）
+// });

@@ -1,7 +1,7 @@
 <template>
-  <div class="flex-start-h page-tool-wrap">
+  <div class="flex-start-h page-content-wrap">
     <v-t-card-block
-      v-for="(item, index) in arrPageToolBlockList"
+      v-for="(item, index) in arrPageBlockList"
       :key="index"
       :info="item"
       @onCardBlockClick="handleCardBlockClick"
@@ -11,18 +11,22 @@
 
 <script>
 import VTCardBlock from "@/components/VTCardBlock";
-import { arrPageToolBlockListTemp } from "@/config/pageBlockList";
 
 export default {
-  name: "PageTool",
+  name: "PageContent",
   components: {
     VTCardBlock,
   },
-  props: {},
+  props: {
+    arrPageBlockList: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
+  },
   data() {
-    return {
-      arrPageToolBlockList: arrPageToolBlockListTemp,
-    };
+    return {};
   },
   methods: {
     // 点击卡片
@@ -34,7 +38,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.page-tool-wrap {
+.page-content-wrap {
   flex-wrap: wrap;
 }
 </style>
