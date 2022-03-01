@@ -1,6 +1,7 @@
 <template>
   <v-t-wrap-detail :title="title">
     <template #body>
+      <!-- 时间戳相关 -->
       <v-t-card-module title="时间戳相关" :btnTipList="['fold']">
         <template #body>
           <v-t-item label="时间戳" type="custom">
@@ -91,9 +92,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.detail-time-wrap {
-}
-
 .timestamp-value {
   margin-right: var(--margin-base);
 }

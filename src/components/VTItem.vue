@@ -1,8 +1,8 @@
 <template>
   <div class="flex-start-h vt-item-wrap">
-    <div class="vt-item-label">{{ label }}：</div>
+    <div class="flex-start-h vt-item-label">{{ label }}：</div>
     <!-- 文字展示 -->
-    <div v-if="type === 'text'" class="flex-start-h vt-item-text">
+    <div v-if="type === 'text'" class="flex-start-h text-select vt-item-text">
       <slot name="text"></slot>
     </div>
     <!-- 自定义 -->
@@ -34,12 +34,15 @@ export default {
   .vt-item-label {
     margin-right: var(--margin-base);
     font-weight: 500;
+    font-size: var(--font-size-xs);
+    align-items: flex-start;
   }
 
   .vt-item-text {
     color: var(--color-text-primary);
-    font-size: var(--font-size-mini);
+    font-size: var(--font-size-xs);
     align-items: center;
+    white-space: pre-wrap;
   }
 
   .vt-item-custom {

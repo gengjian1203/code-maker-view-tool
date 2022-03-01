@@ -16,7 +16,7 @@ const app = createApp(App);
 app
   .use(router)
   .use(VueWechatTitle)
-  .use(ElementPlus, { size: "small", zIndex: 3000 })
+  .use(ElementPlus, { size: "default", zIndex: 3000 })
   .mount("#app");
 
 //  统一注册el-icon图标

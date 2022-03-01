@@ -59,6 +59,7 @@ export default {
     margin-top: var(--margin-base);
     font-size: var(--font-size-mini);
     color: var(--color-gray-4);
+    white-space: pre-wrap;
   }
 }
 </style>
