@@ -1,5 +1,18 @@
 import axios from "axios";
+import jsonp from "jsonp";
+import { routerAppendParams } from "@/kits/index";
 
+// 封装拦截器
+axios.interceptors.request.use(
+  (config) => {
+    config.headers["Content-Type"] = "application/x-www-form-urlencoded"; // 在拦截器中强制为简单请求。
+    return config;
+  },
+  (error) => {
+    // 对请求错误做些什么
+    return Promise.reject(error);
+  }
+);
 class FetchManager {
   static instance = null;
 
@@ -30,6 +43,37 @@ class FetchManager {
     } else {
       return {};
     }
+  };
+
+  // Axios发起GET请求
+  execAxiosGET = async (url, params) => {
+    const res = await axios.get(routerAppendParams(url, params));
+    console.debug("FetchManager get", res);
+    return res;
+  };
+
+  // Axios发起POST请求
+  execAxiosPOST = async (url, params) => {
+    const res = await axios.post(url, params);
+    console.debug("FetchManager post", res);
+    return res;
+  };
+
+  // jsonp发起GET请求
+  execJsonp = async (url, params) => {
+    return new Promise((resolve) => {
+      const urlReal = routerAppendParams(url, params);
+      console.debug("FetchManager execJsonp", urlReal);
+      jsonp(urlReal, null, (err, data) => {
+        if (err) {
+          console.debug("FetchManager execJsonp Fail", err);
+          resolve(err);
+        } else {
+          console.debug("FetchManager execJsonp Success", data);
+          resolve(data);
+        }
+      });
+    });
   };
 }
 

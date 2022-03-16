@@ -19,6 +19,9 @@ const main = async () => {
   });
 
   console.log("静态网站完毕.", result);
+  console.log(
+    `部署地址：https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/`
+  );
 };
 
 // 主函数

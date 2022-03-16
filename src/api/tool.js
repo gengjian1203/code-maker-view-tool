@@ -8,15 +8,12 @@ const ak = "HGtCGFPlNXNqAN9PsXPvi71vrDmAAsFp"; // 百度API接口秘钥
  */
 export const geocodingAddress = async (params) => {
   const { address = "" } = params;
-  const res = await FetchManager.exec(
+  const res = await FetchManager.execJsonp(
     "https://api.map.baidu.com/geocoding/v3/",
     {
-      method: "GET",
-      data: {
-        output: "json",
-        ak: ak,
-        address: address,
-      },
+      output: "json",
+      ak: ak,
+      address: address,
     }
   );
   return res?.result || {};
@@ -28,16 +25,13 @@ export const geocodingAddress = async (params) => {
  */
 export const reverseGeocodingAddress = async (params) => {
   const { location = {} } = params;
-  const res = await FetchManager.exec(
+  const res = await FetchManager.execJsonp(
     "https://api.map.baidu.com/reverse_geocoding/v3/",
     {
-      method: "GET",
-      data: {
-        output: "json",
-        ak: ak,
-        coordtype: "gcj02ll",
-        location: `${location.lat},${location.lng}`,
-      },
+      output: "json",
+      ak: ak,
+      coordtype: "gcj02ll",
+      location: `${location.lat},${location.lng}`,
     }
   );
   return res?.result || {};
