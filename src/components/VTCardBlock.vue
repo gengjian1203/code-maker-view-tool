@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: "VTCardModule",
+  name: "VTCardBlock",
   components: {},
   props: {
     info: {

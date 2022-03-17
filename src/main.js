@@ -1,5 +1,6 @@
 import { createApp } from "vue";
 import VueWechatTitle from "vue-wechat-title";
+import { GlobalCmComponent } from "codemirror-editor-vue3";
 import ElementPlus from "element-plus";
 import * as ElIconModules from "@element-plus/icons-vue";
 
@@ -16,6 +17,7 @@ const app = createApp(App);
 app
   .use(router)
   .use(VueWechatTitle)
+  .use(GlobalCmComponent)
   .use(ElementPlus, { size: "default", zIndex: 3000 })
   .mount("#app");
 
