@@ -14,7 +14,7 @@
         wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-xs);"
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
-        <container :strPageType="strActiveMenuPageType" />
+        <container :nPageIndex="nActiveMenuPageIndex" />
       </el-scrollbar>
     </el-container>
   </el-container>
@@ -32,14 +32,14 @@ export default {
   },
   data() {
     return {
-      strActiveMenuPageType: "",
+      nActiveMenuPageIndex: "",
       arrMenuList: arrMenuListTemp,
     };
   },
   methods: {
-    handleMenuChange(item) {
-      console.log("handleMenuChange", item);
-      this.strActiveMenuPageType = item.type;
+    handleMenuChange(item, index) {
+      console.log("handleMenuChange", item, index);
+      this.nActiveMenuPageIndex = index;
     },
   },
 };

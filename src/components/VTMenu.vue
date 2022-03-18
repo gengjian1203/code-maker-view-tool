@@ -40,9 +40,10 @@ export default {
   watch: {
     strActiveMenuIndex(newValue, oldValue) {
       console.log("strActiveMenuIndex", newValue, oldValue);
-      const item = this.arrMenuList[Number(newValue)] || {};
-      console.log("strActiveMenuIndex", item);
-      this.$emit("onMenuChange", item);
+      const index = Number(newValue);
+      const info = this.arrMenuList[index] || {};
+      console.log("strActiveMenuIndex", info, index);
+      this.$emit("onMenuChange", info, index);
     },
   },
   computed: {

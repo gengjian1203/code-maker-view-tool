@@ -1,12 +1,12 @@
 <template>
   <div class="container-wrap">
-    <!-- <div>{{ objPageDetailInfo?.type || strPageType }}</div> -->
+    <!-- <div>{{ objPageDetailInfo?.type || nPageIndex }}</div> -->
     <!-- <div>{{ objPageDetailInfo?.title }}</div> -->
-    <!-- <div>{{ JSON.stringify(objPageBlockList) }}</div> -->
+    <!-- <div>{{ JSON.stringify(arrMenuList) }}</div> -->
     <!-- 卡片页面 -->
     <page-content
       v-if="!objPageDetailInfo?.type"
-      :arrPageBlockList="objPageBlockList[strPageType]"
+      :arrPageBlockList="arrMenuList[nPageIndex].list"
       @onCardBlockClick="handleCardBlockClick"
     />
     <!-- 详情页面 -->
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { objPageBlockListTemp } from "@/config/pageBlockList";
+import { arrMenuListTemp } from "@/config/menuList";
 import DetailCss from "@/views/DetailCss";
 import DetailEmpty from "@/views/DetailEmpty";
 import DetailJs from "@/views/DetailJs";
@@ -41,19 +41,19 @@ export default {
     PageContent,
   },
   props: {
-    strPageType: {
-      type: String,
-      default: "",
+    nPageIndex: {
+      type: Number,
+      default: 0,
     },
   },
   data() {
     return {
-      objPageBlockList: objPageBlockListTemp,
+      arrMenuList: arrMenuListTemp,
       objPageDetailInfo: {},
     };
   },
   watch: {
-    strPageType: {
+    nPageIndex: {
       handler() {
         this.objPageDetailInfo = {};
       },
