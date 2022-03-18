@@ -111,8 +111,10 @@ export default {
   margin-bottom: var(--margin-xs);
 
   .vt-module-header {
-    flex: 0 0 24px;
-    height: 24px;
+    margin-bottom: var(--margin-base);
+    flex: 0 0 0.24rem;
+    height: 0.32rem;
+    line-height: 0.32rem;
 
     .vt-module-header-left {
       .vt-module-header-title {
@@ -121,15 +123,16 @@ export default {
         position: relative;
         color: #313131;
         font-weight: 600;
+        font-size: var(--font-size-sm);
       }
       .vt-module-header-title::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
-        width: 6px;
-        height: 20px;
-        border-radius: 0 6px 6px 0;
+        width: 0.08rem;
+        height: 0.32rem;
+        border-radius: 0 0.06rem 0.06rem 0;
         background-color: #6cacf8;
       }
     }

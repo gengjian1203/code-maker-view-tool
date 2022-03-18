@@ -11,7 +11,7 @@
     <el-container class="app-body">
       <el-scrollbar
         style="width: 100%; height: 100%"
-        wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: 12px;"
+        wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-xs);"
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
         <container :strPageType="strActiveMenuPageType" />

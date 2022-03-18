@@ -15,7 +15,10 @@
                   clearable
                   @change="handleCityOneBtnClick"
                 />
-                <el-button type="primary" @click="handleCityOneBtnClick"
+                <el-button
+                  type="primary"
+                  :loading="isCityOneBtnLoading"
+                  @click="handleCityOneBtnClick"
                   >查询</el-button
                 >
               </div>
@@ -52,7 +55,10 @@
                   clearable
                   @change="handleCityMultiBtnClick"
                 />
-                <el-button type="primary" @click="handleCityMultiBtnClick"
+                <el-button
+                  type="primary"
+                  :loading="isCityMultiBtnLoading"
+                  @click="handleCityMultiBtnClick"
                   >查询</el-button
                 >
               </div>
@@ -97,11 +103,13 @@ export default {
   data() {
     return {
       // 查询单一位置
+      isCityOneBtnLoading: false,
       strCityOneAddressValue: "南京", // 待查询位置信息
       strCityOneLocation: "", // 经纬度
       strCityOneFormattedAddress: "", // 地址信息
       strCityOneBusiness: "", // 商圈信息
       // 查询多条位置
+      isCityMultiBtnLoading: false,
       strCityMultiAddressValue: "['南京','三亚','马鞍山','台南','镇江']", // 待查询位置信息
       strCityMultiProvince: "", // 省份去重结果
       strCityMultiDetail: "", // 反查详情结果

@@ -6,7 +6,7 @@
       <slot name="text"></slot>
     </div>
     <!-- 自定义 -->
-    <div v-if="type === 'custom'" class="vt-item-custom">
+    <div v-if="type === 'custom'" class="flex-start-h vt-item-custom">
       <slot name="custom"></slot>
     </div>
   </div>
@@ -29,12 +29,16 @@ export default {
 
 <style lang="less" scoped>
 .vt-item-wrap {
-  margin-bottom: var(--margin-base);
+  // margin-bottom: var(--margin-base);
+  height: auto;
+  min-height: 0.52rem;
+  line-height: 0.52rem;
+  align-items: flex-start;
 
   .vt-item-label {
     margin-right: var(--margin-base);
     font-weight: 500;
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     align-items: flex-start;
   }
 
@@ -46,6 +50,9 @@ export default {
   }
 
   .vt-item-custom {
+    min-height: 0.52rem;
+    line-height: 0.52rem;
+    align-items: center;
   }
 }
 </style>

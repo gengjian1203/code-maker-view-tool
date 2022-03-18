@@ -42,9 +42,14 @@ export default {
 <style lang="less" scoped>
 .vt-wrap-detail-wrap {
   .vt-wrap-detail-header {
-    margin-bottom: var(--margin-base);
+    margin-bottom: var(--margin-sm);
     width: 100%;
-    height: 36px;
+    height: 0.36rem;
+    .vt-wrap-detail-header-left {
+    }
+    .vt-wrap-detail-header-right {
+      font-size: var(--font-size-xs);
+    }
   }
 }
 </style>
