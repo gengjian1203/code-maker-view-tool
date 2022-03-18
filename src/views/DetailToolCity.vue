@@ -86,6 +86,7 @@ import Api from "@/api";
 import VTCardModule from "@/components/VTCardModule";
 import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
+import AutoStatusLoading from "@/decorator/AutoStatusLoading";
 
 export default {
   name: "DetailCity",
@@ -117,6 +118,7 @@ export default {
   },
   methods: {
     // 点击单一位置查询
+    @AutoStatusLoading("isCityOneBtnLoading")
     async handleCityOneBtnClick() {
       const res = await Api.tool.getProvinceFromCity({
         address: this.strCityOneAddressValue,
@@ -129,6 +131,7 @@ export default {
       this.strCityOneBusiness = business; // 商圈信息
     },
     // 点击多条位置查询
+    @AutoStatusLoading("isCityMultiBtnLoading")
     async handleCityMultiBtnClick() {
       if (!this.strCityMultiAddressValue) {
         return;
