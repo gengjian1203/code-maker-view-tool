@@ -5,11 +5,11 @@
     background-color="#545c64"
     text-color="#fff"
     :collapse="isCollapse"
-    :default-active="strActiveMenuIndex"
+    :default-active="activeMenu"
     @select="handleMenuItemSelect"
   >
     <template v-for="(item, index) in arrMenuList" :key="index">
-      <el-menu-item class="menu-item" :index="`${index}`">
+      <el-menu-item class="menu-item" :index="`${item.pageName}`">
         <div :class="{ ...item.icon, iconfont: true, 'menu-icon': true }" />
         <template #title>
           <span>{{ item.name }}</span>
@@ -33,36 +33,37 @@ export default {
   },
   data() {
     return {
-      strActiveMenuIndex: "",
       screenWidth: document.body.clientWidth,
+      activeMenu: "",
     };
   },
   watch: {
-    strActiveMenuIndex(newValue, oldValue) {
-      console.log("strActiveMenuIndex", newValue, oldValue);
-      const index = Number(newValue);
-      const info = this.arrMenuList[index] || {};
-      console.log("strActiveMenuIndex", info, index);
-      this.$emit("onMenuChange", info, index);
+    $route() {
+      this.pageName = this.$route.query.pageName || "";
+      this.activeMenu = this.pageName.split("/")[0];
     },
   },
   computed: {
     isCollapse() {
       // console.log("screenWidth", this.screenWidth);
-      return this.screenWidth < 500;
+      return this.screenWidth < 600;
     },
   },
   methods: {
-    handleMenuItemSelect(index) {
-      this.strActiveMenuIndex = index;
+    handleMenuItemSelect(pageName) {
+      // console.log("handleMenuItemSelect", pageName);
+      let index = this.arrMenuList.findIndex((item) => {
+        return item.pageName === pageName;
+      });
+      index = index >= 0 ? index : 0;
+
+      const info = this.arrMenuList[index] || {};
+      this.$emit("onMenuChange", info, index);
     },
     handleWindowResize() {
       // console.log("resize", document.body.clientWidth);
       this.screenWidth = document.body.clientWidth;
     },
-  },
-  created() {
-    this.strActiveMenuIndex = "0";
   },
   mounted() {
     window.addEventListener("resize", this.handleWindowResize);

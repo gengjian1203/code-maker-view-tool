@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import { navigateTo, navigateBack } from "@/kits";
+
 export default {
   name: "VTWrapDetail",
   components: {},
@@ -32,8 +34,9 @@ export default {
   },
   methods: {
     handleBackClick() {
-      console.log("handleBackClick");
-      this.$emit("onDetailBackClick");
+      // console.log("handleBackClick");
+      // this.$emit("onDetailBackClick");
+      navigateBack();
     },
   },
 };

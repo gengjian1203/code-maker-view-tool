@@ -14,7 +14,7 @@
         wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-xs);"
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
-        <container :nPageIndex="nActiveMenuPageIndex" />
+        <component :is="objSelectInfo?.component" :info="objSelectInfo" />
       </el-scrollbar>
     </el-container>
   </el-container>
@@ -23,23 +23,61 @@
 <script>
 import VTMenu from "@/components/VTMenu";
 import { arrMenuListTemp } from "@/config/menuList";
-import Container from "@/views/Container";
+import { navigateTo, navigateBack } from "@/kits";
+import DetailCss from "@/views/DetailCss";
+import DetailEmpty from "@/views/DetailEmpty";
+import DetailJs from "@/views/DetailJs";
+import DetailQwRobot from "@/views/DetailQwRobot";
+import DetailToolCity from "@/views/DetailToolCity";
+import DetailToolTime from "@/views/DetailToolTime";
+import PageContent from "@/views/PageContent";
 
 export default {
   components: {
     VTMenu,
-    Container,
+    DetailCss,
+    DetailEmpty,
+    DetailJs,
+    DetailQwRobot,
+    DetailToolCity,
+    DetailToolTime,
+    PageContent,
   },
   data() {
     return {
-      nActiveMenuPageIndex: "",
       arrMenuList: arrMenuListTemp,
+      objSelectInfo: {},
     };
   },
+  watch: {
+    $route() {
+      this.pageName = this.$route.query.pageName;
+
+      if (this.pageName) {
+        const findPage = (list) => {
+          list.map((item) => {
+            if (item.pageName === this.pageName) {
+              this.objSelectInfo = item;
+            }
+            if (item?.list?.length > 0) {
+              findPage(item?.list);
+            }
+          });
+        };
+
+        findPage(arrMenuListTemp);
+        console.log("Watch pageQuery", this.objSelectInfo);
+      } else {
+        const pageName = arrMenuListTemp[0]?.pageName || "empty";
+        navigateTo(pageName);
+      }
+    },
+  },
   methods: {
-    handleMenuChange(item, index) {
-      console.log("handleMenuChange", item, index);
-      this.nActiveMenuPageIndex = index;
+    handleMenuChange(info, index) {
+      // console.log("handleMenuChange", item, index);
+      const { pageName } = info || {};
+      navigateTo(pageName);
     },
   },
 };

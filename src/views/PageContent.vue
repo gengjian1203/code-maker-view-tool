@@ -1,7 +1,7 @@
 <template>
   <div class="flex-start-h page-content-wrap">
     <v-t-card-block
-      v-for="(item, index) in arrPageBlockList"
+      v-for="(item, index) in info.list"
       :key="index"
       :info="item"
       @onCardBlockClick="handleCardBlockClick"
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { navigateTo, navigateBack } from "@/kits";
 import VTCardBlock from "@/components/VTCardBlock";
 
 export default {
@@ -18,6 +19,12 @@ export default {
     VTCardBlock,
   },
   props: {
+    info: {
+      type: Object,
+      default: () => {
+        return {};
+      },
+    },
     arrPageBlockList: {
       type: Array,
       default: () => {
@@ -31,7 +38,10 @@ export default {
   methods: {
     // 点击卡片
     handleCardBlockClick(info) {
-      this.$emit("onCardBlockClick", info);
+      console.log("handleCardBlockClick", info);
+      // this.$emit("onCardBlockClick", info);
+      const { pageName } = info || {};
+      navigateTo(pageName);
     },
   },
 };
