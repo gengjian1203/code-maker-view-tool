@@ -18,7 +18,7 @@
           content="复制代码"
           placement="top"
         >
-          <el-button type="primary">
+          <el-button type="primary" @click="handleCopyClick">
             <span class="iconfont icon-copy" />
           </el-button>
         </el-tooltip>
@@ -94,8 +94,13 @@ export default {
     },
   },
   methods: {
+    // 点击拷贝按钮
+    handleCopyClick() {
+      // console.log("handleCopyClick");
+      this.$emit("onCardModuleCopyClick");
+    },
     handleFoldClick() {
-      console.log("handleFoldClick");
+      // console.log("handleFoldClick");
       this.isFold = !this.isFold;
     },
   },

@@ -6,3 +6,4 @@ export * from "./navigateBack";
 export * from "./navigateTo";
 export * from "./router2Params";
 export * from "./routerAppendParams";
+export * from "./setClipboardData";

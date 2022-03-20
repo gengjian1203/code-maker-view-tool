@@ -9,6 +9,7 @@
               :index="`code-${index}`"
               :title="item?.title"
               :btnTipList="['copy', 'fold']"
+              @onCardModuleCopyClick="handleCardModuleCopyClick(item)"
             >
               <template #body>
                 <v-t-card-code :code="item?.code" :lang="item?.lang" />
@@ -30,10 +31,10 @@
 </template>
 
 <script>
-import { extend } from "vue";
 import VTCardCode from "@/components/VTCardCode";
 import VTCardModule from "@/components/VTCardModule";
 import VTWrapDetail from "@/components/VTWrapDetail";
+import { setClipboardData } from "@/kits";
 
 export default {
   name: "DetailCss",
@@ -98,7 +99,13 @@ export default {
       }
     },
   },
-  methods: {},
+  methods: {
+    // 点击复制代码
+    handleCardModuleCopyClick(item) {
+      // console.log("handleCardModuleCopyClick", item);
+      setClipboardData(item?.code);
+    },
+  },
   mounted() {
     this.isPageReady = true;
   },
