@@ -11,8 +11,8 @@ export const arrMenuListTemp = [
         title: "时间相关",
         icon: "icon-Field-time",
         desc: "时间相关转换",
-        component: "DetailToolTime",
-        pageName: "PageTool/DetailToolTime",
+        component: "DetailToolTime", // 与/views/路径下的页面组件名称相匹配
+        pageName: "PageTool/DetailToolTime", // 唯一的名字，用/分割，前面为所属菜单名称，后面为页面名称
       },
       {
         id: "000001",
@@ -37,7 +37,7 @@ export const arrMenuListTemp = [
         icon: "icon-project",
         desc: "多栏自适应文字省略布局样式",
         component: "DetailCss",
-        pageName: "PageCss/DetailCss",
+        pageName: "PageCss/DetailCssMultiColumn",
       },
       {
         id: "001001",
@@ -45,7 +45,7 @@ export const arrMenuListTemp = [
         icon: "icon-interation-fill",
         desc: "骨架屏相关的效果",
         component: "DetailCss",
-        pageName: "PageCss/DetailCss",
+        pageName: "PageCss/DetailCssSkeleton",
       },
       {
         id: "001002",
@@ -53,7 +53,7 @@ export const arrMenuListTemp = [
         icon: "icon-loading",
         desc: "Loading相关的效果",
         component: "DetailCss",
-        pageName: "PageCss/DetailCss",
+        pageName: "PageCss/DetailCssLoading",
       },
     ],
   },
@@ -70,7 +70,7 @@ export const arrMenuListTemp = [
         icon: "icon-nav-list",
         desc: "路由/传参对象相关转换",
         component: "DetailJs",
-        pageName: "PageJs/DetailJs",
+        pageName: "PageJs/DetailJsRouter2Params",
       },
       {
         id: "002001",
@@ -78,7 +78,7 @@ export const arrMenuListTemp = [
         icon: "icon-responsetime",
         desc: "获取指定时间字符串",
         component: "DetailJs",
-        pageName: "PageJs/DetailJs",
+        pageName: "PageJs/DetailJsFormatDate",
       },
       {
         id: "002002",
@@ -86,7 +86,7 @@ export const arrMenuListTemp = [
         icon: "icon-clock",
         desc: "浏览器中进行倒计时",
         component: "DetailJs",
-        pageName: "PageJs/DetailJs",
+        pageName: "PageJs/DetailJsCountDown",
       },
       {
         id: "002003",
@@ -94,7 +94,7 @@ export const arrMenuListTemp = [
         icon: "icon-send",
         desc: "阻止冒泡时间以及默认行为",
         component: "DetailJs",
-        pageName: "PageJs/DetailJs",
+        pageName: "PageJs/DetailJsStopEvent",
       },
       {
         id: "002004",
@@ -102,7 +102,7 @@ export const arrMenuListTemp = [
         icon: "icon-select",
         desc: "将iconfont图标库全选到购物车",
         component: "DetailJs",
-        pageName: "PageJs/DetailJs",
+        pageName: "PageJs/DetailJsIconfontSelectAll",
       },
     ],
   },

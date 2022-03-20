@@ -1,26 +1,40 @@
 <template>
-  <v-t-wrap-detail :title="title">
+  <v-t-wrap-detail :title="info?.title">
     <template #body>
-      <div>DetailJs.......</div>
-      <v-t-card-code :code="code" />
+      <v-t-card-module title="JS代码" :btnTipList="['copy', 'fold']">
+        <template #body>
+          <div class="flex-start-h detail-js-wrap">
+            <div class="detail-js-block">
+              <v-t-card-code :code="code" />
+            </div>
+            <!-- <div class="detail-css-block">
+              <div id="preview" />
+            </div> -->
+          </div>
+        </template>
+      </v-t-card-module>
     </template>
   </v-t-wrap-detail>
 </template>
 
 <script>
 import VTCardCode from "@/components/VTCardCode";
+import VTCardModule from "@/components/VTCardModule";
 import VTWrapDetail from "@/components/VTWrapDetail";
 
 export default {
   name: "DetailJs",
   components: {
     VTCardCode,
+    VTCardModule,
     VTWrapDetail,
   },
   props: {
-    title: {
-      type: String,
-      default: "",
+    info: {
+      type: Object,
+      default: () => {
+        return {};
+      },
     },
   },
   data() {
@@ -45,5 +59,10 @@ export default {
 
 <style lang="less" scoped>
 .detail-js-wrap {
+  .detail-js-block {
+    overflow: auto;
+    flex: 1 1 auto;
+    width: 0;
+  }
 }
 </style>
