@@ -52,6 +52,7 @@ const requirePages = require.context(
 );
 requirePages.keys().forEach((fileName) => {
   const componentConfig = requirePages(fileName); // 获取组件
+  // console.log("requirePages", componentConfig);
   app.component(
     componentConfig.default.name,
     componentConfig.default || componentConfig

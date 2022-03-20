@@ -1,5 +1,5 @@
 <template>
-  <v-t-wrap-detail :title="title">
+  <v-t-wrap-detail :title="info?.title">
     <template #body>
       <!-- 时间戳相关 -->
       <v-t-card-module title="时间戳相关" :btnTipList="['fold']">
@@ -52,16 +52,18 @@ import VTWrapDetail from "@/components/VTWrapDetail";
 import { getStringDate } from "@/kits/index";
 
 export default {
-  name: "DetailTime",
+  name: "DetailToolTime",
   components: {
     VTItem,
     VTCardModule,
     VTWrapDetail,
   },
   props: {
-    title: {
-      type: String,
-      default: "",
+    info: {
+      type: Object,
+      default: () => {
+        return {};
+      },
     },
   },
   data() {

@@ -1,5 +1,5 @@
 <template>
-  <v-t-wrap-detail :title="title">
+  <v-t-wrap-detail :title="info?.title">
     <template #body>
       <!-- 查询单一位置 -->
       <v-t-card-module title="查询单一位置" :btnTipList="['fold']">
@@ -89,16 +89,18 @@ import VTWrapDetail from "@/components/VTWrapDetail";
 import AutoStatusLoading from "@/decorator/AutoStatusLoading";
 
 export default {
-  name: "DetailCity",
+  name: "DetailToolCity",
   components: {
     VTCardModule,
     VTItem,
     VTWrapDetail,
   },
   props: {
-    title: {
-      type: String,
-      default: "",
+    info: {
+      type: Object,
+      default: () => {
+        return {};
+      },
     },
   },
   data() {

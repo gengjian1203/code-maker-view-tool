@@ -14,6 +14,7 @@
         wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-xs);"
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
+        <!-- <div>{{ objSelectInfo?.component }}</div> -->
         <component :is="objSelectInfo?.component" :info="objSelectInfo" />
       </el-scrollbar>
     </el-container>
@@ -52,7 +53,7 @@ export default {
         };
 
         findPage(arrMenuListTemp);
-        console.log("Watch pageQuery", this.objSelectInfo);
+        // console.log("Watch pageQuery", this.objSelectInfo);
       } else {
         const pageName = arrMenuListTemp[0]?.pageName || "empty";
         navigateTo(pageName);
