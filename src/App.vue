@@ -24,24 +24,10 @@
 import VTMenu from "@/components/VTMenu";
 import { arrMenuListTemp } from "@/config/menuList";
 import { navigateTo, navigateBack } from "@/kits";
-import DetailCss from "@/views/DetailCss";
-import DetailEmpty from "@/views/DetailEmpty";
-import DetailJs from "@/views/DetailJs";
-import DetailQwRobot from "@/views/DetailQwRobot";
-import DetailToolCity from "@/views/DetailToolCity";
-import DetailToolTime from "@/views/DetailToolTime";
-import PageContent from "@/views/PageContent";
 
 export default {
   components: {
     VTMenu,
-    DetailCss,
-    DetailEmpty,
-    DetailJs,
-    DetailQwRobot,
-    DetailToolCity,
-    DetailToolTime,
-    PageContent,
   },
   data() {
     return {
