@@ -15,7 +15,7 @@ import Codemirror from "codemirror-editor-vue3";
 // language
 import "codemirror/mode/htmlmixed/htmlmixed.js"; // text/html
 import "codemirror/mode/javascript/javascript.js"; // text/javascript
-import "codemirror/mode/css/css.js";
+import "codemirror/mode/css/css.js"; // text/css
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/clike/clike.js";
 import "codemirror/mode/markdown/markdown.js";

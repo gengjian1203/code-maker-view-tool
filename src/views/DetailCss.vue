@@ -52,12 +52,9 @@ export default {
   },
   data() {
     return {
-      isPageReady: false,
-      lang: "",
-      code: "",
       content: [],
-
-      //
+      // 渲染右侧预览模块使用
+      isPageReady: false,
       domPreview: "",
     };
   },
@@ -78,7 +75,9 @@ export default {
                 .join("\n")}
             `;
           }
-        } catch (e) {}
+        } catch (e) {
+          console.log("require file Error", e);
+        }
       },
       immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
       deep: true, // 为true，表示深度监听

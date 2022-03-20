@@ -1,18 +1,22 @@
 <template>
   <v-t-wrap-detail :title="info?.title">
     <template #body>
-      <v-t-card-module title="JS代码" :btnTipList="['copy', 'fold']">
-        <template #body>
-          <div class="flex-start-h detail-js-wrap">
-            <div class="detail-js-block">
-              <v-t-card-code :code="code" />
-            </div>
-            <!-- <div class="detail-css-block">
-              <div id="preview" />
-            </div> -->
-          </div>
-        </template>
-      </v-t-card-module>
+      <div class="flex-start-h detail-js-wrap">
+        <!-- 代码 -->
+        <div class="flex-start-v detail-js-code">
+          <template v-for="(item, index) in content" :key="index">
+            <v-t-card-module
+              :index="`code-${index}`"
+              :title="item?.title"
+              :btnTipList="['copy', 'fold']"
+            >
+              <template #body>
+                <v-t-card-code :code="item?.code" :lang="item?.lang" />
+              </template>
+            </v-t-card-module>
+          </template>
+        </div>
+      </div>
     </template>
   </v-t-wrap-detail>
 </template>
@@ -39,19 +43,33 @@ export default {
   },
   data() {
     return {
-      code: `function findSequence(goal) {
-  function find(start, history) {
-    if (start == goal)
-      return history;
-    else if (start > goal)
-      return null;
-    else
-      return find(start + 5, "(" + history + " + 5)") ||
-             find(start * 3, "(" + history + " * 3)");
-  }
-  return find(1, "1");
-}`,
+      content: [],
     };
+  },
+  watch: {
+    info: {
+      handler(newValue) {
+        // console.log("Watch info", newValue.pageName);
+        try {
+          const res = require(`@/config/code/${newValue.pageName}.js`);
+          if (res) {
+            console.log("Watch info", res.content);
+            this.content = res.content;
+            this.domPreview = `
+              ${this.content
+                .map((itemContent) => {
+                  return itemContent.code;
+                })
+                .join("\n")}
+            `;
+          }
+        } catch (e) {
+          console.log("require file Error", e);
+        }
+      },
+      immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      deep: true, // 为true，表示深度监听
+    },
   },
   methods: {},
 };
@@ -59,10 +77,12 @@ export default {
 
 <style lang="less" scoped>
 .detail-js-wrap {
-  .detail-js-block {
-    overflow: auto;
+  .detail-js-code {
+    // margin-right: var(--margin-xs);
+    // overflow: auto;
     flex: 1 1 auto;
     width: 0;
+    height: 100%;
   }
 }
 </style>

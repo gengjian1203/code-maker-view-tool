@@ -5,6 +5,14 @@ import {
 } from "vue-router";
 
 const routes = [
+  {
+    path: "/",
+    name: "App",
+    component: () => import("@/App.vue"),
+    meta: {
+      title: "首页",
+    },
+  },
   // {
   //   path: "/Home",
   //   name: "Home",
