@@ -1,17 +1,20 @@
 <template>
-  <codemirror
-    :value="code"
-    :options="cmOptions"
-    border
-    placeholder="show me the code"
-  />
+  <div class="vt-code-wrap">
+    <codemirror
+      :value="code"
+      :options="cmOptions"
+      border
+      placeholder="show me the code"
+    />
+  </div>
 </template>
 
 <script>
 import Codemirror from "codemirror-editor-vue3";
 
 // language
-import "codemirror/mode/javascript/javascript.js";
+import "codemirror/mode/htmlmixed/htmlmixed.js"; // text/html
+import "codemirror/mode/javascript/javascript.js"; // text/javascript
 import "codemirror/mode/css/css.js";
 import "codemirror/mode/xml/xml.js";
 import "codemirror/mode/clike/clike.js";
@@ -32,6 +35,10 @@ export default {
     Codemirror,
   },
   props: {
+    lang: {
+      type: String,
+      default: "text/javascript",
+    },
     code: {
       type: String,
       default: "",
@@ -39,20 +46,33 @@ export default {
   },
   data() {
     return {
-      cmOptions: {
-        mode: "text/javascript", // Language mode
-        theme: "panda-syntax", // Theme
-        lineNumbers: true, // Show line number
-        smartIndent: true, // Smart indent
-        indentUnit: 2, // The smart indent unit is 2 spaces in length
-        foldGutter: true, // Code folding
-        styleActiveLine: true, // Display the style of the selected row
-      },
+      cmOptions: {},
     };
   },
-  watch: {},
+  watch: {
+    lang: {
+      handler(newValue) {
+        this.cmOptions = {
+          mode: newValue, // Language mode
+          theme: "panda-syntax", // Theme
+          lineNumbers: true, // Show line number
+          smartIndent: true, // Smart indent
+          indentUnit: 2, // The smart indent unit is 2 spaces in length
+          foldGutter: true, // Code folding
+          styleActiveLine: true, // Display the style of the selected row
+        };
+      },
+      immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听
+    },
+  },
   methods: {},
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.vt-code-wrap {
+  overflow: auto;
+  max-height: 400px;
+}
+</style>

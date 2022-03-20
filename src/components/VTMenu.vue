@@ -40,7 +40,7 @@ export default {
   watch: {
     $route() {
       this.pageName = this.$route.query.pageName || "";
-      this.activeMenu = this.pageName.split("/")[0];
+      this.activeMenu = this.pageName.split("_")[0];
     },
   },
   computed: {

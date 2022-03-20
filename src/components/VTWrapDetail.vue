@@ -34,8 +34,6 @@ export default {
   },
   methods: {
     handleBackClick() {
-      // console.log("handleBackClick");
-      // this.$emit("onDetailBackClick");
       navigateBack();
     },
   },

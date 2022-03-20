@@ -117,6 +117,9 @@ export default {
     line-height: 0.32rem;
 
     .vt-module-header-left {
+      flex: 1 1 auto;
+      width: 0;
+
       .vt-module-header-title {
         box-sizing: border-box;
         padding-left: 12px;
@@ -138,6 +141,7 @@ export default {
     }
 
     .vt-module-header-right {
+      flex: 0 0 auto;
     }
   }
 

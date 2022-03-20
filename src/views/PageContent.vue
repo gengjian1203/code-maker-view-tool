@@ -38,8 +38,7 @@ export default {
   methods: {
     // 点击卡片
     handleCardBlockClick(info) {
-      console.log("handleCardBlockClick", info);
-      // this.$emit("onCardBlockClick", info);
+      // console.log("handleCardBlockClick", info);
       const { pageName } = info || {};
       navigateTo(pageName);
     },
