@@ -231,9 +231,8 @@ export default {
   },
   mounted() {
     // 读取缓存
-    this.arrQwRobotWebhookList = StorageManager.getLocalStorageSync(
-      "arrQwRobotWebhookList"
-    );
+    this.arrQwRobotWebhookList =
+      StorageManager.getLocalStorageSync("arrQwRobotWebhookList") || [];
   },
 };
 </script>
