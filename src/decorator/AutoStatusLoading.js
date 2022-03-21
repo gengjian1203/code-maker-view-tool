@@ -12,10 +12,9 @@ const AutoStatusLoading = (loading = "") => {
         await oldFn.apply(this, args);
       } catch (error) {
         // 这里的globalError 等就是console.error 只是不会被打包摇树
-        globalError(`${name}-----start-----${error}`);
-        globalLog(error);
-        globalError(`${name}-----end-----${error}`);
-        errorCb.call(this, error, this);
+        console.error(`${name}-----start-----${error}`);
+        console.error(error);
+        console.error(`${name}-----end-----${error}`);
       } finally {
         this[loading] = false;
       }

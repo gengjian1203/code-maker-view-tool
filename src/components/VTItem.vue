@@ -36,6 +36,7 @@ export default {
   align-items: flex-start;
 
   .vt-item-label {
+    flex: 0 0 auto;
     margin-right: var(--margin-base);
     font-weight: 500;
     font-size: var(--font-size-sm);
@@ -43,6 +44,8 @@ export default {
   }
 
   .vt-item-text {
+    flex: 1 1 auto;
+    width: 0;
     color: var(--color-text-primary);
     font-size: var(--font-size-xs);
     align-items: center;
@@ -50,6 +53,8 @@ export default {
   }
 
   .vt-item-custom {
+    flex: 1 1 auto;
+    width: 0;
     min-height: 0.52rem;
     line-height: 0.52rem;
     align-items: center;

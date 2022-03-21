@@ -6,7 +6,7 @@
         <template #body>
           <v-t-item label="位置名称" type="custom">
             <template #custom>
-              <div class="flex-start-h">
+              <div class="flex-start-h width-fill">
                 <el-input
                   class="city-one-value"
                   type="text"
@@ -46,7 +46,7 @@
         <template #body>
           <v-t-item label="位置名称" type="custom">
             <template #custom>
-              <div class="flex-start-h">
+              <div class="flex-start-h width-fill">
                 <el-input
                   class="city-multi-value"
                   type="text"
@@ -122,7 +122,7 @@ export default {
     // 点击单一位置查询
     @AutoStatusLoading("isCityOneBtnLoading")
     async handleCityOneBtnClick() {
-      const res = await Api.tool.getProvinceFromCity({
+      const res = await Api.DetailToolCity.getProvinceFromCity({
         address: this.strCityOneAddressValue,
       });
       console.log("handleCityOneBtnClick", res);
@@ -156,7 +156,9 @@ export default {
         return;
       }
       for (let item of arrCityList) {
-        const res = await Api.tool.getProvinceFromCity({ address: item });
+        const res = await Api.DetailToolCity.getProvinceFromCity({
+          address: item,
+        });
         const { addressComponent } = res;
         arrResList.push({
           city: item,

@@ -5,6 +5,11 @@ const ak = "HGtCGFPlNXNqAN9PsXPvi71vrDmAAsFp"; // 百度API接口秘钥
 
 /**
  * 地址编码转经纬度
+ * @param {
+ *  output: String 类型json写死
+ *  ak: String API接口秘钥
+ *  address: String 地址信息
+ * }
  */
 export const geocodingAddress = async (params) => {
   const { address = "" } = params;
@@ -21,7 +26,13 @@ export const geocodingAddress = async (params) => {
 
 /**
  * 地址逆编码转经纬度
- * coordtype: string bd09ll（百度经纬度坐标）、bd09mc（百度米制坐标）、gcj02ll（国测局经纬度坐标，仅限中国）、wgs84ll（ GPS经纬度）
+ * @param {
+ *  output: String 类型json写死
+ *  ak: String API接口秘钥
+ *  coordtype: String bd09ll(百度经纬度坐标)、bd09mc(百度米制坐标)、gcj02ll(国测局经纬度坐标,仅限中国)、wgs84ll(GPS经纬度)
+ *  location: String 经纬度
+ * }
+ *
  */
 export const reverseGeocodingAddress = async (params) => {
   const { location = {} } = params;
@@ -39,6 +50,9 @@ export const reverseGeocodingAddress = async (params) => {
 
 /**
  * 根据城市名字反查省份
+ * @param {
+ *  address: String 地址信息
+ * }
  */
 export const getProvinceFromCity = async (params) => {
   const res1 = await geocodingAddress(params);

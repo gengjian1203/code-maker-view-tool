@@ -3,9 +3,12 @@ import jsonp from "jsonp";
 import { routerAppendParams } from "@/kits/index";
 
 // 封装拦截器
+// Content-Type: application/json
+// Content-Type: multipart/form-data
+// Content-Type: application/x-www-form-urlencoded
 axios.interceptors.request.use(
   (config) => {
-    config.headers["Content-Type"] = "application/x-www-form-urlencoded"; // 在拦截器中强制为简单请求。
+    config.headers["Content-Type"] = "application/json"; // 在拦截器中强制为简单请求。
     return config;
   },
   (error) => {
