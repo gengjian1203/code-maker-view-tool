@@ -6,22 +6,20 @@
         <template #body>
           <v-t-item label="位置名称" type="custom">
             <template #custom>
-              <div class="flex-start-h width-fill">
-                <el-input
-                  class="city-one-value"
-                  type="text"
-                  v-model="strCityOneAddressValue"
-                  placeholder="南京"
-                  clearable
-                  @change="handleCityOneBtnClick"
-                />
-                <el-button
-                  type="primary"
-                  :loading="isCityOneBtnLoading"
-                  @click="handleCityOneBtnClick"
-                  >查询</el-button
-                >
-              </div>
+              <el-input
+                class="city-one-value"
+                type="text"
+                v-model="strCityOneAddressValue"
+                placeholder="南京"
+                clearable
+                @change="handleCityOneBtnClick"
+              />
+              <el-button
+                type="primary"
+                :loading="isCityOneBtnLoading"
+                @click="handleCityOneBtnClick"
+                >查询</el-button
+              >
             </template>
           </v-t-item>
           <v-t-item label="经纬度" type="text">
@@ -46,22 +44,20 @@
         <template #body>
           <v-t-item label="位置名称" type="custom">
             <template #custom>
-              <div class="flex-start-h width-fill">
-                <el-input
-                  class="city-multi-value"
-                  type="text"
-                  v-model="strCityMultiAddressValue"
-                  placeholder="['南京','三亚','马鞍山','台南','镇江']"
-                  clearable
-                  @change="handleCityMultiBtnClick"
-                />
-                <el-button
-                  type="primary"
-                  :loading="isCityMultiBtnLoading"
-                  @click="handleCityMultiBtnClick"
-                  >查询</el-button
-                >
-              </div>
+              <el-input
+                class="city-multi-value"
+                type="text"
+                v-model="strCityMultiAddressValue"
+                placeholder="['南京','三亚','马鞍山','台南','镇江']"
+                clearable
+                @change="handleCityMultiBtnClick"
+              />
+              <el-button
+                type="primary"
+                :loading="isCityMultiBtnLoading"
+                @click="handleCityMultiBtnClick"
+                >查询</el-button
+              >
             </template>
           </v-t-item>
           <v-t-item label="省份去重" type="text">

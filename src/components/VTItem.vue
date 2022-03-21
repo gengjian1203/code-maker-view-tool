@@ -1,13 +1,13 @@
 <template>
   <div class="flex-start-h vt-item-wrap">
-    <div class="flex-start-h vt-item-label">{{ label }}：</div>
+    <div v-if="!!label" class="flex-start-h vt-item-label">{{ label }}：</div>
     <!-- 文字展示 -->
     <div v-if="type === 'text'" class="flex-start-h text-select vt-item-text">
       <slot name="text"></slot>
     </div>
     <!-- 自定义 -->
     <div v-if="type === 'custom'" class="flex-start-h vt-item-custom">
-      <slot name="custom"></slot>
+      <slot name="custom" class="flex-start-h width-fill"></slot>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
 
 <style lang="less" scoped>
 .vt-item-wrap {
-  // margin-bottom: var(--margin-base);
+  margin-top: var(--margin-xs);
   height: auto;
   min-height: 0.52rem;
   line-height: 0.52rem;
