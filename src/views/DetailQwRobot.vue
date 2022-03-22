@@ -220,7 +220,7 @@ export default {
         }
       }
 
-      const res = await Api.DetailQwRobot.sendRobotMsg(params);
+      const res = await Api.DetailQw.sendRobotMsg(params);
       console.log("handleQwRobotSendBtnClick", res);
       if (res?.body?.errcode === 0) {
         ElMessage.success("发送成功");

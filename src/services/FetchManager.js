@@ -6,16 +6,17 @@ import { routerAppendParams } from "@/kits/index";
 // Content-Type: application/json
 // Content-Type: multipart/form-data
 // Content-Type: application/x-www-form-urlencoded
-axios.interceptors.request.use(
-  (config) => {
-    config.headers["Content-Type"] = "application/json"; // 在拦截器中强制为简单请求。
-    return config;
-  },
-  (error) => {
-    // 对请求错误做些什么
-    return Promise.reject(error);
-  }
-);
+//
+// axios.interceptors.request.use(
+//   (config) => {
+//     config.headers["Content-Type"] = "application/json"; // 在拦截器中强制为简单请求。
+//     return config;
+//   },
+//   (error) => {
+//     // 对请求错误做些什么
+//     return Promise.reject(error);
+//   }
+// );
 class FetchManager {
   static instance = null;
 
@@ -49,15 +50,15 @@ class FetchManager {
   };
 
   // Axios发起GET请求
-  execAxiosGET = async (url, params) => {
-    const res = await axios.get(routerAppendParams(url, params));
+  execAxiosGET = async (url = "", params = {}, config = {}) => {
+    const res = await axios.get(routerAppendParams(url, params), config);
     console.debug("FetchManager get", res);
     return res;
   };
 
   // Axios发起POST请求
-  execAxiosPOST = async (url, params) => {
-    const res = await axios.post(url, params);
+  execAxiosPOST = async (url = "", params = {}, config = {}) => {
+    const res = await axios.post(url, params, config);
     console.debug("FetchManager post", res);
     return res;
   };

@@ -1,7 +1,7 @@
-import DetailQwRobot from "./DetailQwRobot";
+import DetailQw from "./DetailQw";
 import DetailToolCity from "./DetailToolCity";
 
 export default {
-  DetailQwRobot,
+  DetailQw,
   DetailToolCity,
 };
