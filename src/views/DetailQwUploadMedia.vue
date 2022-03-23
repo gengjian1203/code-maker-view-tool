@@ -82,8 +82,8 @@
                 list-type="picture"
                 :multiple="false"
                 :show-file-list="true"
-                :http-request="handleQwUploadMediaHttpRequest"
                 :file-list="arrQwUploadMediaFileList"
+                :http-request="handleQwUploadMediaHttpRequest"
                 :on-change="handleQwUploadMediaChange"
                 :on-remove="handleQwUploadMediaRemove"
                 :before-upload="handleQwUploadMediaBeforeUpload"
@@ -198,14 +198,6 @@ export default {
     },
     // 覆盖element的默认上传文件
     handleQwUploadMediaHttpRequest(data) {
-      // const reader = new FileReader();
-      // reader.readAsText(data.file);
-      // reader.onload = (res) => {
-      //   console.log("handleQwUploadMediaHttpRequest", res);
-      //   this.objQwUploadMediaFile = res?.currentTarget?.result;
-      // };
-      //
-      // console.log("handleQwUploadMediaHttpRequest", data.file);
       this.objQwUploadMediaFile = data?.file;
     },
     // 限制文件上传的个数只有一个，获取上传列表的最后一个

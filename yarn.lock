@@ -6998,6 +6998,11 @@ jpeg-js@^0.3.4:
   resolved "https://registry.npmmirror.com/jpeg-js/-/jpeg-js-0.3.7.tgz#471a89d06011640592d314158608690172b1028d"
   integrity sha512-9IXdWudL61npZjvLuVe/ktHiA41iE8qFyLB+4VDTblEsWBzeg8WQTlktdUK4CdncUqtUgUg0bbOmTE2bKBKaBQ==
 
+js-md5@^0.7.3:
+  version "0.7.3"
+  resolved "https://registry.npmmirror.com/js-md5/-/js-md5-0.7.3.tgz#b4f2fbb0b327455f598d6727e38ec272cd09c3f2"
+  integrity sha512-ZC41vPSTLKGwIRjqDh8DfXoCrdQIyBgspJVPXHBGu4nZlAEvG3nf+jO9avM9RmLiGakg7vz974ms99nEV0tmTQ==
+
 js-message@1.0.7:
   version "1.0.7"
   resolved "https://registry.npm.taobao.org/js-message/download/js-message-1.0.7.tgz?cache=0&sync_timestamp=1605129209185&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-message%2Fdownload%2Fjs-message-1.0.7.tgz#fbddd053c7a47021871bb8b2c95397cc17c20e47"

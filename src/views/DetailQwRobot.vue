@@ -73,6 +73,63 @@
           </v-t-item>
 
           <!-- 图片类型 -->
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'image'"
+            label="图片"
+            type="custom"
+          >
+            <template #custom>
+              <el-upload
+                class="detail-qw-robot-item"
+                drag
+                action="#"
+                list-type="picture"
+                :multiple="false"
+                :show-file-list="true"
+                :file-list="arrImageFileList"
+                :http-request="handleImageHttpRequest"
+                :on-change="handleImageChange"
+                :on-remove="handleImageRemove"
+                :before-upload="handleImageBeforeUpload"
+              >
+                <div class="iconfont icon-cloud-upload" />
+                <div class="el-upload__text">
+                  将文件拖到此处，或<em>点击上传</em>
+                </div>
+              </el-upload>
+            </template>
+          </v-t-item>
+
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'image' && arrImageFileList?.length > 0"
+            label="base64编码"
+            type="custom"
+          >
+            <template #custom>
+              <el-input
+                class="detail-qw-robot-item"
+                type="textarea"
+                v-model="strImageBase64"
+                placeholder="图片内容的base64编码(注意不能携带图片头部data:image/png;base64)"
+              />
+            </template>
+          </v-t-item>
+
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'image' && arrImageFileList?.length > 0"
+            label="md5值"
+            type="custom"
+          >
+            <template #custom>
+              <el-input
+                class="detail-qw-robot-item"
+                type="text"
+                v-model="strImageMD5"
+                placeholder="图片内容（base64编码前）的md5值"
+                clearable
+              />
+            </template>
+          </v-t-item>
 
           <!-- 图文类型 -->
 
@@ -98,11 +155,14 @@
 
 <script>
 import { ElMessage } from "element-plus";
+import md5 from "js-md5";
 import Api from "@/api";
 import VTCardModule from "@/components/VTCardModule";
 import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
 import AutoStatusLoading from "@/decorator/AutoStatusLoading";
+import VerifyParams from "@/decorator/VerifyParams";
+import { file2Base64, file2Buffer } from "@/kits";
 import StorageManager from "@/services/StorageManager";
 
 export default {
@@ -135,13 +195,40 @@ export default {
       // 文本类型
       strTextContent: "",
       // 图片类型
+      strImageBase64: "",
+      strImageMD5: "",
       // 图文类型
+      arrImageFileList: [],
       // 文件类型
       // 模版卡片类型
+
+      // 发送消息
       isQwRobotSendBtnLoading: false,
     };
   },
+  watch: {
+    strQwRobotMsgtype: {
+      handler(newValue) {
+        this.resetValue();
+      },
+      immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听，这时候就能监测到a值变化
+    },
+  },
   methods: {
+    // 初始化
+    resetValue() {
+      console.log("resetValue");
+      // 文本类型
+      this.strTextContent = "";
+      // 图片类型
+      this.strImageBase64 = "";
+      this.strImageMD5 = "";
+      // 图文类型
+      this.arrImageFileList = [];
+      // 文件类型
+      // 模版卡片类型
+    },
     // 选中webhook
     async handleQwRobotWebhookChange(value) {
       const valueReal = value.trim();
@@ -185,7 +272,34 @@ export default {
         this.arrQwRobotWebhookList
       );
     },
+    // 覆盖element的默认上传文件
+    async handleImageHttpRequest(data) {
+      const image = data.file; // 获取文件域中选中的图片
+      const base64 = await file2Base64(image);
+      this.strImageBase64 = base64.split(";base64,")[1];
+      const buffer = await file2Buffer(image);
+      this.strImageMD5 = md5(buffer);
+      // console.log(image);
+      // console.log("handleImageHttpRequest base64", base64);
+      // console.log("handleImageHttpRequest buffer", buffer);
+    },
+    // 限制文件上传的个数只有一个，获取上传列表的最后一个
+    handleImageChange(file, fileList) {
+      if (fileList.length > 0) {
+        this.arrImageFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
+      }
+    },
+    // 移除文件列表
+    handleImageRemove(file, fileList) {
+      // console.log("handleQwUploadMediaRemove", file, fileList);
+      this.arrImageFileList = [];
+    },
+    //
+    handleImageBeforeUpload() {
+      return true;
+    },
     // 点击发送消息按钮
+    @VerifyParams(["strQwRobotWebhook"])
     @AutoStatusLoading("isQwRobotSendBtnLoading")
     async handleQwRobotSendBtnClick() {
       // console.log("handleQwRobotSendBtnClick");
@@ -204,6 +318,13 @@ export default {
           break;
         }
         case "image": {
+          params.data = JSON.stringify({
+            msgtype: this.strQwRobotMsgtype, // msgtype,
+            image: {
+              base64: this.strImageBase64,
+              md5: this.strImageMD5,
+            },
+          });
           break;
         }
         case "news": {
@@ -255,5 +376,22 @@ export default {
   box-sizing: border-box;
   padding-left: var(--padding-xs);
   flex: 0 0 auto;
+}
+
+:deep(.el-upload) {
+  width: 100%;
+
+  .el-upload-dragger {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .icon-cloud-upload {
+      margin-bottom: var(--margin-mini);
+      font-size: var(--font-size-bg);
+    }
+  }
 }
 </style>
