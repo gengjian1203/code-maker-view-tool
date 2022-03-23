@@ -67,6 +67,11 @@ export default {
       navigateTo(pageName);
     },
   },
+  mounted() {
+    const con = require("@/services/lib/vconsole.min");
+    const vConsole = new con();
+    console.log("vConsole", vConsole);
+  },
 };
 </script>
 

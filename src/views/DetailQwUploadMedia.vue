@@ -79,11 +79,13 @@
                 class="detail-qw-upload-media-item"
                 drag
                 action="#"
+                list-type="picture"
                 :multiple="false"
                 :show-file-list="true"
                 :http-request="handleQwUploadMediaHttpRequest"
                 :file-list="arrQwUploadMediaFileList"
                 :on-change="handleQwUploadMediaChange"
+                :on-remove="handleQwUploadMediaRemove"
                 :before-upload="handleQwUploadMediaBeforeUpload"
               >
                 <div class="iconfont icon-cloud-upload" />
@@ -104,6 +106,19 @@
               >
             </template>
           </v-t-item>
+
+          <v-t-item v-if="strResMediaId" label="media_id" type="custom">
+            <template #custom>
+              <div class="flex-between-h detail-qw-upload-media-item">
+                <div class="text-ellipsis detail-qw-upload-media-mediaid">
+                  {{ strResMediaId }}
+                </div>
+                <el-button type="primary" @click="handleQwMediaIdCopyClick"
+                  >复制</el-button
+                >
+              </div>
+            </template>
+          </v-t-item>
         </template>
       </v-t-card-module>
     </template>
@@ -118,6 +133,8 @@ import VTCardModule from "@/components/VTCardModule";
 import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
 import AutoStatusLoading from "@/decorator/AutoStatusLoading";
+import VerifyParams from "@/decorator/VerifyParams";
+import { setClipboardData } from "@/kits";
 import StorageManager from "@/services/StorageManager";
 
 export default {
@@ -157,14 +174,22 @@ export default {
       arrQwUploadMediaFileList: [], // 上传文件列表（只能有一个）
       objQwUploadMediaFile: null,
       isQwUploadMediaBtnLoading: false, // 上传临时素材按钮loading状态控制
+
+      // 结果展示
+      strResMediaId: "",
+      strResType: "",
     };
   },
   methods: {
     // 点击获取access_token按钮
+    // @VerifyParams(["strQwCorpid", "strQwCorpsecret"])
     @AutoStatusLoading("isQwQueryAccessTokenBtnLoading")
     async handleQwQueryAccessTokenClick() {
-      console.log("handleQwQueryAccessTokenClick");
-      const params = {};
+      // console.log("handleQwQueryAccessTokenClick");
+      const params = {
+        corpid: this.strQwCorpid,
+        corpsecret: this.strQwCorpsecret,
+      };
       const res = await Api.DetailQw.getAccessToken(params);
       console.log("handleQwQueryAccessTokenClick", res);
       if (res?.body?.access_token) {
@@ -179,14 +204,22 @@ export default {
       //   console.log("handleQwUploadMediaHttpRequest", res);
       //   this.objQwUploadMediaFile = res?.currentTarget?.result;
       // };
-      console.log("handleQwUploadMediaHttpRequest", data.file);
+      //
+      // console.log("handleQwUploadMediaHttpRequest", data.file);
       this.objQwUploadMediaFile = data?.file;
     },
     // 限制文件上传的个数只有一个，获取上传列表的最后一个
     handleQwUploadMediaChange(file, fileList) {
+      // console.log("handleQwUploadMediaChange", file, fileList);
       if (fileList.length > 0) {
         this.arrQwUploadMediaFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
       }
+    },
+    // 移除文件列表
+    handleQwUploadMediaRemove(file, fileList) {
+      console.log("handleQwUploadMediaRemove", file, fileList);
+      this.arrQwUploadMediaFileList = [];
+      this.objQwUploadMediaFile = null;
     },
     // 上传文件之前的钩子，校验文件类型。参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
     handleQwUploadMediaBeforeUpload(file) {
@@ -201,16 +234,10 @@ export default {
       // }
       return true;
     },
-
     // 点击上传临时素材按钮
+    @VerifyParams(["objQwUploadMediaFile"])
     @AutoStatusLoading("isQwUploadMediaBtnLoading")
     async handleQwUploadMediaClick() {
-      console.log(
-        "handleQwUploadMediaClick",
-        this.strQwAccessToken,
-        this.strQwUploadType
-      );
-
       const params = new FormData();
       params.append("corpid", this.strQwCorpid);
       params.append("corpsecret", this.strQwCorpsecret);
@@ -218,17 +245,19 @@ export default {
       params.append("type", this.strQwUploadType);
       params.append("media", this.objQwUploadMediaFile);
 
-      // const params = {
-      //   corpid: this.strQwCorpid,
-      //   corpsecret: this.strQwCorpsecret,
-      //   accessToken: this.strQwAccessToken,
-      //   type: this.strQwUploadType,
-      //   fileMedia: this.objQwUploadMediaFile,
-      // };
-
       const res = await Api.DetailQw.uploadQwMediaTmp(params);
       console.log("uploadQwMediaTmp", res);
+      if (res?.body?.errcode === 0) {
+        const { media_id, type } = res?.body || {};
+        console.log("uploadQwMediaTmp", media_id, type);
+        ElMessage.success("上传成功");
+        this.strResMediaId = media_id;
+        this.strResType = type;
+      } else {
+        ElMessage.error(`${res?.body?.errmsg}`);
+      }
 
+      // 直接请求企微api接口（会跨域）
       // const formData = new FormData();
       // formData.append("media", this.objQwUploadMediaFile);
       // axios
@@ -242,6 +271,10 @@ export default {
       //     console.log("uploadQwMediaTmp res", data);
       //   });
     },
+    // 点击mediaid复制按钮
+    handleQwMediaIdCopyClick() {
+      setClipboardData(this.strResMediaId);
+    },
   },
   mounted() {},
 };
@@ -250,9 +283,14 @@ export default {
 <style lang="less" scoped>
 .detail-qw-upload-media-item {
   width: 100%;
+
+  .detail-qw-upload-media-mediaid {
+    flex: 1 1 auto;
+    width: 0;
+  }
 }
 
-::v-deep .el-upload {
+:deep(.el-upload) {
   width: 100%;
 
   .el-upload-dragger {

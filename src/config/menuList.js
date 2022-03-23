@@ -108,7 +108,7 @@ export const arrMenuListTemp = [
       },
       {
         title: "上传临时素材",
-        icon: "icon-robot1",
+        icon: "icon-cloud-upload",
         desc: "素材仅三天内有效",
         component: "DetailQwUploadMedia",
         pageName: "PageQwapi_DetailQwUploadMedia",
