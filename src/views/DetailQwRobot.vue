@@ -149,6 +149,79 @@
           </v-t-item>
 
           <!-- 图文类型 -->
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'news'"
+            label="图文数量"
+            type="custom"
+          >
+            <template #custom>
+              <div class="flex-start-h detail-qw-robot-item">
+                <el-button
+                  type="primary"
+                  :disabled="arrNewsArticles.length >= 8"
+                  @click="handleNewsArticlesAddClick"
+                >
+                  <span class="iconfont icon-add-select" />
+                </el-button>
+                <el-button
+                  type="primary"
+                  :disabled="arrNewsArticles.length <= 1"
+                  @click="handleNewsArticlesSamiClick"
+                >
+                  <span class="iconfont icon-sami-select" />
+                </el-button>
+              </div>
+            </template>
+          </v-t-item>
+
+          <template v-if="strQwRobotMsgtype === 'news'">
+            <template v-for="(item, index) in arrNewsArticles" :key="index">
+              <v-t-item :label="`图文标题【${index + 1}】`" type="custom">
+                <template #custom>
+                  <el-input
+                    class="detail-qw-robot-item"
+                    type="text"
+                    v-model="item.title"
+                    placeholder="标题，不超过128个字节，超过会自动截断"
+                    clearable
+                  />
+                </template>
+              </v-t-item>
+              <v-t-item :label="`图文描述【${index + 1}】`" type="custom">
+                <template #custom>
+                  <el-input
+                    class="detail-qw-robot-item"
+                    type="text"
+                    v-model="item.description"
+                    placeholder="描述，不超过512个字节，超过会自动截断"
+                    clearable
+                  />
+                </template>
+              </v-t-item>
+              <v-t-item :label="`图文链接【${index + 1}】`" type="custom">
+                <template #custom>
+                  <el-input
+                    class="detail-qw-robot-item"
+                    type="text"
+                    v-model="item.url"
+                    placeholder="点击后跳转的链接"
+                    clearable
+                  />
+                </template>
+              </v-t-item>
+              <v-t-item :label="`图文图片【${index + 1}】`" type="custom">
+                <template #custom>
+                  <el-input
+                    class="detail-qw-robot-item"
+                    type="text"
+                    v-model="item.picurl"
+                    placeholder="图文消息的图片链接，支持JPG、PNG格式，较好的效果为大图 1068*455，小图150*150"
+                    clearable
+                  />
+                </template>
+              </v-t-item>
+            </template>
+          </template>
 
           <!-- 文件类型 -->
           <v-t-item
@@ -261,6 +334,14 @@ export default {
       strImageMD5: "",
       arrImageFileList: [],
       // 图文类型
+      arrNewsArticles: [
+        {
+          title: "",
+          description: "",
+          url: "",
+          picurl: "",
+        },
+      ],
       // 文件类型
       arrFileFileList: [],
       strFileMediaId: "",
@@ -292,6 +373,14 @@ export default {
       this.strImageMD5 = "";
       this.arrImageFileList = [];
       // 图文类型
+      this.arrNewsArticles = [
+        {
+          title: "",
+          description: "",
+          url: "",
+          picurl: "",
+        },
+      ];
       // 文件类型
       this.arrFileFileList = [];
       this.strFileMediaId = "";
@@ -404,6 +493,21 @@ export default {
     handleFileBeforeUpload() {
       return true;
     },
+    // 图文类型：增加图文项
+    handleNewsArticlesAddClick() {
+      console.log("handleNewsArticlesAddClick");
+      this.arrNewsArticles.push({
+        title: "",
+        description: "",
+        url: "",
+        picurl: "",
+      });
+    },
+    // 图文类型：减少图文项
+    handleNewsArticlesSamiClick() {
+      console.log("handleNewsArticlesSamiClick");
+      this.arrNewsArticles.pop();
+    },
     // 点击发送消息按钮
     @VerifyParams(["strQwRobotWebhook"])
     @AutoStatusLoading("isQwRobotSendBtnLoading")
@@ -443,6 +547,14 @@ export default {
           break;
         }
         case "news": {
+          params.data = JSON.stringify({
+            msgtype: this.strQwRobotMsgtype, // msgtype,
+            news: {
+              articles: this.arrNewsArticles.map((item) => {
+                return item;
+              }),
+            },
+          });
           break;
         }
         case "file": {
