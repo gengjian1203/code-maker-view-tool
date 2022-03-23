@@ -72,6 +72,23 @@
             </template>
           </v-t-item>
 
+          <!-- markdown类型 -->
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'markdown'"
+            label="markdown内容"
+            type="custom"
+          >
+            <template #custom>
+              <el-input
+                class="detail-qw-robot-item"
+                type="textarea"
+                v-model="strMarkdownContent"
+                placeholder="markdown内容，最长不超过4096个字节，必须是utf8编码"
+                clearable
+              />
+            </template>
+          </v-t-item>
+
           <!-- 图片类型 -->
           <v-t-item
             v-if="strQwRobotMsgtype === 'image'"
@@ -134,6 +151,48 @@
           <!-- 图文类型 -->
 
           <!-- 文件类型 -->
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'file'"
+            label="文件"
+            type="custom"
+          >
+            <template #custom>
+              <el-upload
+                class="detail-qw-robot-item"
+                drag
+                action="#"
+                list-type="picture"
+                :multiple="false"
+                :show-file-list="true"
+                :file-list="arrFileFileList"
+                :http-request="handleFileHttpRequest"
+                :on-change="handleFileChange"
+                :on-remove="handleFileRemove"
+                :before-upload="handleFileBeforeUpload"
+              >
+                <div class="iconfont icon-cloud-upload" />
+                <div class="el-upload__text">
+                  将文件拖到此处，或<em>点击上传</em>
+                </div>
+              </el-upload>
+            </template>
+          </v-t-item>
+
+          <v-t-item
+            v-if="strQwRobotMsgtype === 'file'"
+            label="文件id"
+            type="custom"
+          >
+            <template #custom>
+              <el-input
+                class="detail-qw-robot-item"
+                type="text"
+                v-model="strFileMediaId"
+                placeholder="文件id，通过上传接口获取"
+                clearable
+              />
+            </template>
+          </v-t-item>
 
           <!-- 模版卡片类型 -->
 
@@ -162,7 +221,7 @@ import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
 import AutoStatusLoading from "@/decorator/AutoStatusLoading";
 import VerifyParams from "@/decorator/VerifyParams";
-import { file2Base64, file2Buffer } from "@/kits";
+import { file2Base64, file2Buffer, router2Params } from "@/kits";
 import StorageManager from "@/services/StorageManager";
 
 export default {
@@ -187,6 +246,7 @@ export default {
       strQwRobotMsgtype: "text", // msgtype值
       arrQwRobotMsgtypeList: [
         { label: "文本类型", value: "text" },
+        { label: "markdown类型", value: "markdown" },
         { label: "图片类型", value: "image" },
         { label: "图文类型", value: "news" },
         { label: "文件类型", value: "file" },
@@ -194,12 +254,16 @@ export default {
       ], // msgtype列表
       // 文本类型
       strTextContent: "",
+      // markdown类型
+      strMarkdownContent: "",
       // 图片类型
       strImageBase64: "",
       strImageMD5: "",
-      // 图文类型
       arrImageFileList: [],
+      // 图文类型
       // 文件类型
+      arrFileFileList: [],
+      strFileMediaId: "",
       // 模版卡片类型
 
       // 发送消息
@@ -221,12 +285,16 @@ export default {
       console.log("resetValue");
       // 文本类型
       this.strTextContent = "";
+      // markdown类型
+      this.strMarkdownContent = "";
       // 图片类型
       this.strImageBase64 = "";
       this.strImageMD5 = "";
-      // 图文类型
       this.arrImageFileList = [];
+      // 图文类型
       // 文件类型
+      this.arrFileFileList = [];
+      this.strFileMediaId = "";
       // 模版卡片类型
     },
     // 选中webhook
@@ -272,7 +340,7 @@ export default {
         this.arrQwRobotWebhookList
       );
     },
-    // 覆盖element的默认上传文件
+    // 图片类型：覆盖element的默认上传文件
     async handleImageHttpRequest(data) {
       const image = data.file; // 获取文件域中选中的图片
       const base64 = await file2Base64(image);
@@ -283,19 +351,57 @@ export default {
       // console.log("handleImageHttpRequest base64", base64);
       // console.log("handleImageHttpRequest buffer", buffer);
     },
-    // 限制文件上传的个数只有一个，获取上传列表的最后一个
+    // 图片类型：限制文件上传的个数只有一个，获取上传列表的最后一个
     handleImageChange(file, fileList) {
       if (fileList.length > 0) {
         this.arrImageFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
       }
     },
-    // 移除文件列表
+    // 图片类型：移除文件列表
     handleImageRemove(file, fileList) {
       // console.log("handleQwUploadMediaRemove", file, fileList);
       this.arrImageFileList = [];
     },
-    //
+    // 图片类型：
     handleImageBeforeUpload() {
+      return true;
+    },
+    // 文件类型：覆盖element的默认上传文件
+    async handleFileHttpRequest(data) {
+      this.strFileMediaId = "";
+      const objFileMediaFile = data?.file;
+      console.log("handleFileHttpRequest");
+      const params = new FormData();
+      const { params: p } = router2Params(this.strQwRobotWebhook);
+      const { key = "" } = p || {};
+      params.append("key", key);
+      params.append("type", this.strQwRobotMsgtype);
+      params.append("media", objFileMediaFile);
+
+      const res = await Api.DetailQw.uploadQwRobotMedia(params);
+      console.log("handleFileHttpRequest", res);
+      if (res?.body?.errcode === 0) {
+        const { media_id, type } = res?.body || {};
+        console.log("handleFileHttpRequest", media_id, type);
+        ElMessage.success("上传成功");
+        this.strFileMediaId = media_id;
+      } else {
+        ElMessage.error(`${res?.body?.errmsg}`);
+      }
+    },
+    // 文件类型：限制文件上传的个数只有一个，获取上传列表的最后一个
+    handleFileChange(file, fileList) {
+      if (fileList.length > 0) {
+        this.arrFileFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
+      }
+    },
+    // 文件类型：移除文件列表
+    handleFileRemove(file, fileList) {
+      // console.log("handleQwUploadMediaRemove", file, fileList);
+      this.arrFileFileList = [];
+    },
+    // 文件类型：
+    handleFileBeforeUpload() {
       return true;
     },
     // 点击发送消息按钮
@@ -317,6 +423,15 @@ export default {
           });
           break;
         }
+        case "markdown": {
+          params.data = JSON.stringify({
+            msgtype: this.strQwRobotMsgtype, // msgtype,
+            markdown: {
+              content: this.strMarkdownContent,
+            },
+          });
+          break;
+        }
         case "image": {
           params.data = JSON.stringify({
             msgtype: this.strQwRobotMsgtype, // msgtype,
@@ -331,6 +446,12 @@ export default {
           break;
         }
         case "file": {
+          params.data = JSON.stringify({
+            msgtype: this.strQwRobotMsgtype, // msgtype,
+            file: {
+              media_id: this.strFileMediaId,
+            },
+          });
           break;
         }
         case "template_card": {
