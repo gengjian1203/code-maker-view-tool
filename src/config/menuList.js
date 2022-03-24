@@ -26,6 +26,13 @@ export const arrMenuListTemp = [
         component: "DetailToolWXMiniTrial",
         pageName: "PageTool_DetailToolWXMiniTrial",
       },
+      // {
+      //   title: "测试模块",
+      //   icon: "icon-link1",
+      //   desc: "测试模块",
+      //   component: "DetailEmpty",
+      //   pageName: "PageTool_DetailEmpty",
+      // },
     ],
   },
   {

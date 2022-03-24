@@ -4,39 +4,15 @@
       <!-- 查询单一位置 -->
       <v-t-card-module title="企微机器人" :btnTipList="['fold']">
         <template #body>
-          <v-t-item label="Webhook地址" type="custom">
-            <template #custom>
-              <el-select
-                ref="selectWebhook"
-                class="detail-qw-robot-item"
-                type="text"
-                allow-create
-                filterable
-                default-first-option
-                v-model="strQwRobotWebhook"
-                placeholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
-                clearable
-                @change="handleQwRobotWebhookChange"
-              >
-                <el-option
-                  v-for="item in arrQwRobotWebhookList"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                >
-                  <div class="flex-between-h">
-                    <div class="text-ellipsis detail-webhook-label">
-                      {{ item.label }}
-                    </div>
-                    <div
-                      class="iconfont icon-close1 detail-webhook-icon"
-                      :data-value="item.value"
-                      @click="handleWebhookDelete"
-                    />
-                  </div>
-                </el-option>
-              </el-select>
-            </template>
+          <v-t-item
+            label="Webhook地址"
+            type="select"
+            strSelectStroageName="arrQwRobotWebhookList"
+            v-model:strSelectValue="strQwRobotWebhook"
+            strSelectPlaceholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
+            v-model:arrSelectList="arrQwRobotWebhookList"
+          >
+            <template #select />
           </v-t-item>
 
           <v-t-item label="消息类型" type="custom">
@@ -386,49 +362,6 @@ export default {
       this.strFileMediaId = "";
       // 模版卡片类型
     },
-    // 选中webhook
-    async handleQwRobotWebhookChange(value) {
-      const valueReal = value.trim();
-      if (!valueReal) {
-        return;
-      }
-      console.log("handleQwRobotWebhookChange", valueReal);
-      const nIndex = this.arrQwRobotWebhookList.findIndex((item) => {
-        return item.value === valueReal;
-      });
-      if (nIndex < 0) {
-        this.arrQwRobotWebhookList.push({
-          value: valueReal,
-          label: valueReal,
-        });
-      }
-      // 存入缓存
-      StorageManager.setLocalStorageSync(
-        "arrQwRobotWebhookList",
-        this.arrQwRobotWebhookList
-      );
-    },
-    // 删除webhook
-    async handleWebhookDelete(e) {
-      // 收起弹窗
-      this.$refs.selectWebhook.visible = false;
-      // console.log("handleWebhookDelete", e);
-      e.preventDefault();
-      e.stopPropagation();
-      const value = e.currentTarget.getAttribute("data-value");
-      console.log("handleWebhookDelete", value);
-      this.arrQwRobotWebhookList = this.arrQwRobotWebhookList.filter((item) => {
-        return item.value !== value;
-      });
-      if (this.strQwRobotWebhook === value) {
-        this.strQwRobotWebhook = "";
-      }
-      // 存入缓存
-      StorageManager.setLocalStorageSync(
-        "arrQwRobotWebhookList",
-        this.arrQwRobotWebhookList
-      );
-    },
     // 图片类型：覆盖element的默认上传文件
     async handleImageHttpRequest(data) {
       const image = data.file; // 获取文件域中选中的图片
@@ -583,11 +516,7 @@ export default {
       }
     },
   },
-  mounted() {
-    // 读取缓存
-    this.arrQwRobotWebhookList =
-      StorageManager.getLocalStorageSync("arrQwRobotWebhookList") || [];
-  },
+  mounted() {},
 };
 </script>
 
