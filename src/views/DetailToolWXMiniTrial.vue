@@ -3,28 +3,26 @@
     <template #body>
       <v-t-card-module title="拼接微信小程序体验版链接" :btnTipList="['fold']">
         <template #body>
-          <v-t-item label="小程序appid" type="custom">
-            <template #custom>
-              <el-input
-                class="detail-tool-trial-item"
-                type="text"
-                v-model="strTrialAppid"
-                placeholder="小程序appid(以wx开头)"
-                clearable
-              />
-            </template>
+          <v-t-item
+            label="小程序appid"
+            type="select"
+            strSelectStroageName="arrTrialAppidList"
+            v-model:strSelectValue="strTrialAppid"
+            strSelectPlaceholder="小程序appid(以wx开头)"
+            v-model:arrSelectList="arrTrialAppidList"
+          >
+            <template #select />
           </v-t-item>
 
-          <v-t-item label="小程序path" type="custom">
-            <template #custom>
-              <el-input
-                class="detail-tool-trial-item"
-                type="text"
-                v-model="strTrialPath"
-                placeholder="小程序path(不以/开头，以.html结尾)"
-                clearable
-              />
-            </template>
+          <v-t-item
+            label="小程序path"
+            type="select"
+            strSelectStroageName="arrTrialPathList"
+            v-model:strSelectValue="strTrialPath"
+            strSelectPlaceholder="小程序path(不以/开头，以.html结尾)"
+            v-model:arrSelectList="arrTrialPathList"
+          >
+            <template #select />
           </v-t-item>
 
           <v-t-item label="参数数量" type="custom">
@@ -135,7 +133,9 @@ export default {
   data() {
     return {
       strTrialAppid: "",
+      arrTrialAppidList: [],
       strTrialPath: "",
+      arrTrialPathList: [],
       arrTrialParams: [],
       isTrialCreateLinkBtnLoading: false,
       strTrialLink: "",
