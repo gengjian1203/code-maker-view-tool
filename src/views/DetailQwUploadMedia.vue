@@ -4,28 +4,26 @@
       <!-- 第一步：获取access_token -->
       <v-t-card-module title="第一步：获取access_token" :btnTipList="['fold']">
         <template #body>
-          <v-t-item label="corpid" type="custom">
-            <template #custom>
-              <el-input
-                class="detail-qw-upload-media-item"
-                type="text"
-                v-model="strQwCorpid"
-                placeholder="企业微信ID"
-                clearable
-              />
-            </template>
+          <v-t-item
+            label="corpid"
+            type="select"
+            strSelectStroageName="arrQwCorpidList"
+            v-model:strSelectValue="strQwCorpid"
+            strSelectPlaceholder="企业微信ID"
+            v-model:arrSelectList="arrQwCorpidList"
+          >
+            <template #select />
           </v-t-item>
 
-          <v-t-item label="corpsecret" type="custom">
-            <template #custom>
-              <el-input
-                class="detail-qw-upload-media-item"
-                type="text"
-                v-model="strQwCorpsecret"
-                placeholder="企业应用secret"
-                clearable
-              />
-            </template>
+          <v-t-item
+            label="corpsecret"
+            type="select"
+            strSelectStroageName="arrQwCorpsecretList"
+            v-model:strSelectValue="strQwCorpsecret"
+            strSelectPlaceholder="企业应用secret"
+            v-model:arrSelectList="arrQwCorpsecretList"
+          >
+            <template #select />
           </v-t-item>
 
           <v-t-item label="" type="custom">
@@ -156,7 +154,9 @@ export default {
     return {
       // 第一步
       strQwCorpid: "", // 企业微信ID
+      arrQwCorpidList: [], // 企业微信ID记忆列表
       strQwCorpsecret: "", // 企业应用secret
+      arrQwCorpsecretList: [], // 企业应用secret记忆列表
       isQwQueryAccessTokenBtnLoading: false, // 获取access_token按钮loading状态控制
 
       // 第二步
