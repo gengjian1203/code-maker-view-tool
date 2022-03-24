@@ -19,6 +19,13 @@ export const arrMenuListTemp = [
         component: "DetailToolCity",
         pageName: "PageTool_DetailToolCity",
       },
+      {
+        title: "体验版链接",
+        icon: "icon-link1",
+        desc: "拼接微信小程序体验版链接",
+        component: "DetailToolWXMiniTrial",
+        pageName: "PageTool_DetailToolWXMiniTrial",
+      },
     ],
   },
   {

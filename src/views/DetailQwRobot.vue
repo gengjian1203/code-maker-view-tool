@@ -323,7 +323,7 @@ export default {
         { label: "图片类型", value: "image" },
         { label: "图文类型", value: "news" },
         { label: "文件类型", value: "file" },
-        { label: "模版卡片类型", value: "template_card" },
+        { label: "模版卡片类型（参数太多暂不支持）", value: "template_card" },
       ], // msgtype列表
       // 文本类型
       strTextContent: "",
