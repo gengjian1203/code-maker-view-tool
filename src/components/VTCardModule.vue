@@ -24,26 +24,28 @@
         </el-tooltip>
 
         <el-tooltip
-          v-if="isShowBtnTipCode"
+          v-if="isShowBtnTipSwitch"
           effect="dark"
-          content="展示代码"
+          :content="arrTipSwitchList[nTipSwitchIndex]?.name"
           placement="top"
         >
-          <el-button type="primary">
-            <span class="iconfont icon-code2" />
+          <el-button type="primary" @click="handleSwitchClick">
+            <span
+              :class="`iconfont ${arrTipSwitchList[nTipSwitchIndex]?.icon}`"
+            />
           </el-button>
         </el-tooltip>
 
         <el-tooltip
           v-if="isShowBtnTipFold"
           effect="dark"
-          :content="isFold ? '收起' : '展开'"
+          :content="isFold ? '展开' : '收起'"
           placement="top"
         >
           <el-button type="primary" @click="handleFoldClick">
             <el-icon size="16px">
-              <span v-if="isFold" class="iconfont icon-folder" />
-              <span v-else class="iconfont icon-folder-open" />
+              <span v-if="isFold" class="iconfont icon-folder-open" />
+              <span v-else class="iconfont icon-folder" />
             </el-icon>
           </el-button>
         </el-tooltip>
@@ -72,12 +74,22 @@ export default {
         return [];
       },
     },
+    nTipSwitchIndex: {
+      type: Number,
+      default: 0,
+    },
+    arrTipSwitchList: {
+      type: Array,
+      default: () => {
+        return [];
+      },
+    },
   },
   data() {
     return {
       isFold: true,
       isShowBtnTipCopy: false,
-      isShowBtnTipCode: false,
+      isShowBtnTipSwitch: false,
       isShowBtnTipFold: false,
     };
   },
@@ -86,7 +98,7 @@ export default {
       handler(newValue) {
         // console.log("watch btnTipList", newValue, oldValue);
         this.isShowBtnTipCopy = newValue.includes("copy");
-        this.isShowBtnTipCode = newValue.includes("code");
+        this.isShowBtnTipSwitch = newValue.includes("switch");
         this.isShowBtnTipFold = newValue.includes("fold");
       },
       immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
@@ -99,6 +111,17 @@ export default {
       // console.log("handleCopyClick");
       this.$emit("onCardModuleCopyClick");
     },
+    // 点击切换按钮
+    handleSwitchClick() {
+      // this.$emit("onCardModuleCopyClick");
+      // this.nTipSwitchIndex
+      // this.arrTipSwitchList
+      const nTipSwitchIndexTmp =
+        (this.nTipSwitchIndex + 1) % this.arrTipSwitchList.length;
+      console.log("handleSwitchClick", nTipSwitchIndexTmp);
+      this.$emit("update:nTipSwitchIndex", nTipSwitchIndexTmp);
+    },
+    // 点击展开收起按钮
     handleFoldClick() {
       // console.log("handleFoldClick");
       this.isFold = !this.isFold;

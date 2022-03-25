@@ -28,7 +28,7 @@ export const content = [
 
   .module-left {
     height: 100%;
-    flex: 0 0 120px;
+    flex: 0 1 120px;
     background-color: red;
   }
 
@@ -48,7 +48,7 @@ export const content = [
   
   .module-right {
     height: 100%;
-    flex: 0 0 120px;
+    flex: 0 1 120px;
     background-color: green;
   }
   

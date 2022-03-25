@@ -1,28 +1,43 @@
 <template>
   <v-t-wrap-detail :title="info?.title">
     <template #body>
-      <div class="flex-start-h detail-css-wrap">
-        <!-- 代码 -->
-        <div class="flex-start-v detail-css-code">
-          <template v-for="(item, index) in content" :key="index">
-            <v-t-card-module
-              :index="`code-${index}`"
-              :title="item?.title"
-              :btnTipList="['copy', 'fold']"
-              @onCardModuleCopyClick="handleCardModuleCopyClick(item)"
+      <v-t-card-module
+        :title="info?.title"
+        v-model:nTipSwitchIndex="nTipSwitchIndex"
+        :arrTipSwitchList="arrTipSwitchList"
+        :btnTipList="['switch', 'fold']"
+        @onCardModuleCopyClick="handleCardModuleCopyClick(item)"
+      >
+        <template #body>
+          <div class="flex-start-h detail-css-wrap">
+            <!-- 代码 -->
+            <div
+              v-show="nTipSwitchIndex === 0 || nTipSwitchIndex === 1"
+              class="flex-start-v detail-css-code"
             >
-              <template #body>
-                <v-t-card-code :code="item?.code" :lang="item?.lang" />
+              <template v-for="(item, index) in content" :key="index">
+                <v-t-card-module
+                  :index="`code-${index}`"
+                  :title="item?.title"
+                  :btnTipList="['copy', 'fold']"
+                  @onCardModuleCopyClick="handleCardModuleCopyClick(item)"
+                >
+                  <template #body>
+                    <v-t-card-code :code="item?.code" :lang="item?.lang" />
+                  </template>
+                </v-t-card-module>
               </template>
-            </v-t-card-module>
-          </template>
-        </div>
-        <!-- 预览 -->
-        <div
-          class="flex-center-v detail-css-preview"
-          id="_detail-css-preview"
-        />
-      </div>
+            </div>
+            <!-- 预览 -->
+            <div
+              v-show="nTipSwitchIndex === 0 || nTipSwitchIndex === 2"
+              class="flex-center-v detail-css-preview"
+              id="_detail-css-preview"
+            />
+          </div>
+        </template>
+      </v-t-card-module>
+
       <div class="hidden-far">
         {{ renderDomPreview }}
       </div>
@@ -54,9 +69,17 @@ export default {
   data() {
     return {
       content: [],
+      // VTCardModule使用
+      nTipSwitchIndex: 0,
+      arrTipSwitchList: [
+        { icon: "icon-Similarproducts", name: "代码效果" },
+        { icon: "icon-code1", name: "只看代码" },
+        { icon: "icon-browse", name: "只看效果" },
+      ],
+
       // 渲染右侧预览模块使用
-      isPageReady: false,
-      domPreview: "",
+      isPageReady: false, // 页面加载完毕
+      domPreview: "", // 待渲染标签
     };
   },
   watch: {
@@ -92,7 +115,8 @@ export default {
         const domDetailCssPreview = document.getElementById(
           "_detail-css-preview"
         );
-        domDetailCssPreview.insertAdjacentHTML("beforeend", this.domPreview);
+        // domDetailCssPreview.insertAdjacentHTML("beforeend", this.domPreview);
+        domDetailCssPreview.innerHTML = this.domPreview;
         return true;
       } else {
         return false;
@@ -114,8 +138,10 @@ export default {
 
 <style lang="less" scoped>
 .detail-css-wrap {
+  .detail-css-block + .detail-css-block {
+    margin-left: var(--margin-xs);
+  }
   .detail-css-code {
-    margin-right: var(--margin-xs);
     // overflow: auto;
     flex: 1 1 auto;
     width: 0;
