@@ -99,6 +99,35 @@
           </v-t-item>
         </template>
       </v-t-card-module>
+
+      <v-t-card-module title="历史记录" :btnTipList="['fold']">
+        <template #body>
+          <template
+            v-for="(item, index) in arrTrialHistoryLinkList"
+            :key="index"
+          >
+            <v-t-item :label="item.time" type="custom">
+              <template #custom>
+                <div class="flex-between-h detail-tool-trial-item">
+                  <div class="text-wrap text-break detail-tool-trial-link">
+                    {{ item.link }}
+                  </div>
+                  <el-button
+                    type="primary"
+                    @click="handleTrialHistoryLinkCopyBtnClick(index)"
+                    >复制</el-button
+                  >
+                  <el-button
+                    type="primary"
+                    @click="handleTrialHistoryLinkDeleteBtnClick(index)"
+                    >删除</el-button
+                  >
+                </div>
+              </template>
+            </v-t-item>
+          </template>
+        </template>
+      </v-t-card-module>
     </template>
   </v-t-wrap-detail>
 </template>
@@ -110,10 +139,12 @@ import VTWrapDetail from "@/components/VTWrapDetail";
 import AutoStatusLoading from "@/decorator/AutoStatusLoading";
 import {
   endsWith,
+  getStringDate,
   routerAppendParams,
   setClipboardData,
   startsWith,
 } from "@/kits";
+import StorageManager from "@/services/StorageManager";
 
 export default {
   name: "DetailToolWXMiniTrial",
@@ -139,6 +170,8 @@ export default {
       arrTrialParams: [],
       isTrialCreateLinkBtnLoading: false,
       strTrialLink: "",
+      // 历史记录
+      arrTrialHistoryLinkList: [],
     };
   },
   methods: {
@@ -194,11 +227,40 @@ export default {
         `https://open.weixin.qq.com/sns/getexpappinfo` +
         `?appid=${this.strTrialAppid}` +
         `&path=${path}`;
+
+      this.arrTrialHistoryLinkList.unshift({
+        time: getStringDate().timeString,
+        link: this.strTrialLink,
+      });
+      StorageManager.setLocalStorageSync(
+        "arrTrialHistoryLinkList",
+        this.arrTrialHistoryLinkList
+      );
     },
     // 点击复制链接
     handleTrialLinkCopyBtnClick() {
       setClipboardData(this.strTrialLink);
     },
+    // 点击历史记录复制链接
+    handleTrialHistoryLinkCopyBtnClick(i) {
+      setClipboardData(this.arrTrialHistoryLinkList[i]?.link);
+    },
+    // 点击历史记录删除链接
+    handleTrialHistoryLinkDeleteBtnClick(i) {
+      this.arrTrialHistoryLinkList = this.arrTrialHistoryLinkList.filter(
+        (item, index) => {
+          return index !== i;
+        }
+      );
+      StorageManager.setLocalStorageSync(
+        "arrTrialHistoryLinkList",
+        this.arrTrialHistoryLinkList
+      );
+    },
+  },
+  mounted() {
+    this.arrTrialHistoryLinkList =
+      StorageManager.getLocalStorageSync("arrTrialHistoryLinkList") || [];
   },
 };
 </script>
