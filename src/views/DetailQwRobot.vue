@@ -294,11 +294,11 @@ export default {
       arrQwRobotWebhookList: [], // webhook列表
       strQwRobotMsgtype: "text", // msgtype值
       arrQwRobotMsgtypeList: [
-        { label: "文本类型", value: "text" },
-        { label: "markdown类型", value: "markdown" },
-        { label: "图片类型", value: "image" },
-        { label: "图文类型", value: "news" },
-        { label: "文件类型", value: "file" },
+        { label: "文本类型(最长不超过2048个字节)", value: "text" },
+        { label: "markdown类型(最长不超过4096个字节)", value: "markdown" },
+        { label: "图片类型(最大不能超过2M,支持JPG,PNG格式)", value: "image" },
+        { label: "图文类型(支持1到8条图文)", value: "news" },
+        { label: "文件类型(文件大小在5B~20M之间)", value: "file" },
         { label: "模版卡片类型（参数太多暂不支持）", value: "template_card" },
       ], // msgtype列表
       // 文本类型
