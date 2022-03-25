@@ -21,6 +21,25 @@ app
   .use(ElementPlus, { size: "default", zIndex: 3000 })
   .mount("#app");
 
+// 修复el-select ios 无法唤起软键盘解决
+app.mixin({
+  mounted() {
+    if (typeof this.$el.className === "string") {
+      if (this.$el.className.split(" ").indexOf("el-select") !== -1) {
+        this.$el.children[0].children[0].children[0].removeAttribute(
+          "readOnly"
+        );
+        this.$el.children[0].children[0].children[0].onblur = function () {
+          let _this = this;
+          setTimeout(() => {
+            _this.removeAttribute("readOnly");
+          }, 200);
+        };
+      }
+    }
+  },
+});
+
 //  统一注册el-icon图标
 for (const iconName in ElIconModules) {
   if (Reflect.has(ElIconModules, iconName)) {
