@@ -118,7 +118,7 @@ export default {
     // 点击单一位置查询
     @AutoStatusLoading("isCityOneBtnLoading")
     async handleCityOneBtnClick() {
-      const res = await Api.DetailToolCity.getProvinceFromCity({
+      const res = await Api.DetailTool.getProvinceFromCity({
         address: this.strCityOneAddressValue,
       });
       console.log("handleCityOneBtnClick", res);
@@ -152,7 +152,7 @@ export default {
         return;
       }
       for (let item of arrCityList) {
-        const res = await Api.DetailToolCity.getProvinceFromCity({
+        const res = await Api.DetailTool.getProvinceFromCity({
           address: item,
         });
         const { addressComponent } = res;

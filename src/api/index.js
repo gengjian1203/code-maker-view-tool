@@ -1,7 +1,7 @@
 import DetailQw from "./DetailQw";
-import DetailToolCity from "./DetailToolCity";
+import DetailTool from "./DetailTool";
 
 export default {
   DetailQw,
-  DetailToolCity,
+  DetailTool,
 };

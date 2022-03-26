@@ -40,7 +40,7 @@ export default {
     return {};
   },
   methods: {
-    // 点击转换当前时间戳
+    // 上传图片
     handleUploadFileChange(file, fileList) {
       console.log("DetailToolTinifyImage handleUploadFileChange", file?.raw);
     },
