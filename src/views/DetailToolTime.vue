@@ -2,13 +2,12 @@
   <v-t-wrap-detail :title="info?.title">
     <template #body>
       <!-- 时间戳相关 -->
-      <v-t-card-module title="时间戳相关" :btnTipList="['fold']">
+      <v-t-card-module title="时间戳转日期时间" :btnTipList="['fold']">
         <template #body>
           <v-t-item label="时间戳" type="custom">
             <template #custom>
-              <div class="flex-start-h">
+              <div class="flex-start-h detail-tool-time-item">
                 <el-input
-                  class="timestamp-value"
                   type="text"
                   v-model="strTimestampValue"
                   placeholder="1638108325790"
@@ -18,13 +17,13 @@
                   v-if="strTimestampValue"
                   type="primary"
                   @click="handleTransformTimestampClick"
-                  >转换当前时间戳</el-button
+                  >转换当前时间</el-button
                 >
                 <el-button
                   v-else
                   type="primary"
                   @click="handleGetTimestampClick"
-                  >获取当前时间戳</el-button
+                  >获取当前时间</el-button
                 >
               </div>
             </template>
@@ -37,6 +36,29 @@
           <v-t-item label="日期简写" type="text">
             <template #text>
               {{ strDateSimple }}
+            </template>
+          </v-t-item>
+        </template>
+      </v-t-card-module>
+
+      <v-t-card-module title="日期时间转时间戳" :btnTipList="['fold']">
+        <template #body>
+          <v-t-item label="日期时间" type="custom">
+            <template #custom>
+              <div class="flex-start-h detail-tool-time-item">
+                <el-date-picker
+                  v-model="strTimestampValue2"
+                  type="datetime"
+                  placeholder="请选择日期"
+                  format="YYYY-MM-DD hh:mm:ss"
+                  value-format="x"
+                />
+              </div>
+            </template>
+          </v-t-item>
+          <v-t-item label="时间戳" type="text">
+            <template #text>
+              {{ strTimestampValue2 }}
             </template>
           </v-t-item>
         </template>
@@ -68,9 +90,13 @@ export default {
   },
   data() {
     return {
+      // 时间戳转日期时间
       strTimestampValue: "",
       strDate: "",
       strDateSimple: "",
+
+      // 日期时间转时间戳
+      strTimestampValue2: "",
     };
   },
   methods: {
@@ -94,7 +120,11 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.timestamp-value {
-  margin-right: var(--margin-base);
+.el-input + .el-button {
+  margin-left: var(--margin-xs);
+}
+
+.detail-tool-time-item {
+  width: 100%;
 }
 </style>

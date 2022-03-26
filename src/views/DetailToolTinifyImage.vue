@@ -102,6 +102,7 @@
 
 <script>
 import Api from "@/api";
+import { ElMessage } from "element-plus";
 import VTCardModule from "@/components/VTCardModule";
 import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
@@ -188,6 +189,8 @@ export default {
           `${size}字节` +
           `(${(size / 1000).toFixed(2)}KB)` +
           `(${(size / 1000 / 1000).toFixed(2)}MB)`;
+      } else if (res?.body?.message) {
+        ElMessage.error(res?.body?.message);
       }
     },
     // 下载压缩后的图片
