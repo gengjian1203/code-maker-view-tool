@@ -1,3 +1,4 @@
+import GlobalManager from "@/services/GlobalManager";
 import FetchManager from "@/services/FetchManager";
 
 // https://lbs.baidu.com/index.php?title=webapi/guide/webservice-geocoding
@@ -60,8 +61,28 @@ export const getProvinceFromCity = async (params) => {
   return res2;
 };
 
+/** tinify压缩图片接口
+ * https://tinify.cn/developers
+ * https://tinify.cn/dashboard/api
+ * 素材上传得到media_id，该media_id仅三天内有效 media_id只能是对应上传文件的机器人可以使用
+ * @param {
+ *  image: File 图片文件
+ * }
+ * 内容类型为multipart/form-data
+ */
+export const tinifyImage = async (params) => {
+  console.log("tinifyImage", params);
+  const res = await FetchManager.execAxiosPOST(
+    `${GlobalManager.baseUrlWeiXinCloudrun}/api/post/tinifyImage`,
+    params,
+    { headers: { "Content-Type": "multipart/form-data" } }
+  );
+  return res?.data || {};
+};
+
 export default {
   geocodingAddress,
   reverseGeocodingAddress,
   getProvinceFromCity,
+  tinifyImage,
 };

@@ -98,6 +98,10 @@
 
       <v-t-card-module title="历史记录" :btnTipList="['fold']">
         <template #body>
+          <el-empty
+            v-if="arrTrialHistoryLinkList.length === 0"
+            description="暂无数据"
+          />
           <template
             v-for="(item, index) in arrTrialHistoryLinkList"
             :key="index"

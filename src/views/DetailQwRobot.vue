@@ -331,23 +331,24 @@ export default {
     async handleFileChange(file, fileList) {
       this.strFileMediaId = "";
       const objFileMediaFile = file?.raw;
-      console.log("handleFileHttpRequest");
-      const params = new FormData();
-      const { params: p } = router2Params(this.strQwRobotWebhook);
-      const { key = "" } = p || {};
-      params.append("key", key);
-      params.append("type", this.strQwRobotMsgtype);
-      params.append("media", objFileMediaFile);
+      if (objFileMediaFile) {
+        const params = new FormData();
+        const { params: p } = router2Params(this.strQwRobotWebhook);
+        const { key = "" } = p || {};
+        params.append("key", key);
+        params.append("type", this.strQwRobotMsgtype);
+        params.append("media", objFileMediaFile);
 
-      const res = await Api.DetailQw.uploadQwRobotMedia(params);
-      console.log("handleFileHttpRequest", res);
-      if (res?.body?.errcode === 0) {
-        const { media_id, type } = res?.body || {};
-        console.log("handleFileHttpRequest", media_id, type);
-        ElMessage.success("上传成功");
-        this.strFileMediaId = media_id;
-      } else {
-        ElMessage.error(`${res?.body?.errmsg}`);
+        const res = await Api.DetailQw.uploadQwRobotMedia(params);
+        console.log("handleFileHttpRequest", res);
+        if (res?.body?.errcode === 0) {
+          const { media_id, type } = res?.body || {};
+          console.log("handleFileHttpRequest", media_id, type);
+          ElMessage.success("上传成功");
+          this.strFileMediaId = media_id;
+        } else {
+          ElMessage.error(`${res?.body?.errmsg}`);
+        }
       }
     },
     // 图文类型：增加图文项
