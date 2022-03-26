@@ -1,11 +1,11 @@
 <template>
   <div class="flex-start-h vt-item-wrap">
     <div v-if="!!label" class="flex-start-h vt-item-label">{{ label }}：</div>
-    <!-- 文字 -->
+    <!-- 文字类型 -->
     <div v-if="type === 'text'" class="flex-start-h text-select vt-item-text">
       <slot name="text" class="flex-start-h width-fill"></slot>
     </div>
-    <!-- 选择器 -->
+    <!-- 选择器类型 -->
     <div v-if="type === 'select'" class="flex-start-h vt-item-custom">
       <el-select
         ref="refSelect"
@@ -38,6 +38,10 @@
         </el-option>
       </el-select>
     </div>
+    <!-- 上传文件类型 -->
+    <div v-if="type === 'upload'" class="flex-start-h vt-item-custom">
+      <v-t-upload-file @onUploadFileChange="handleUploadFileChange" />
+    </div>
     <!-- 自定义 -->
     <div v-if="type === 'custom'" class="flex-start-h vt-item-custom">
       <slot name="custom" class="flex-start-h width-fill"></slot>
@@ -46,14 +50,17 @@
 </template>
 
 <script>
+import VTUploadFile from "@/components/VTUploadFile";
 import StorageManager from "@/services/StorageManager";
 
 export default {
   name: "VTItem",
-  components: {},
+  components: {
+    VTUploadFile,
+  },
   props: {
     label: { type: String, default: "" },
-    type: { type: String, default: "" }, // 'text' - 文字 | 'select' - 选择器 | 'custom' - 自定义
+    type: { type: String, default: "" }, // 'text' - 文字 | 'select' - 选择器 | 'upload' - 选择器 | 'custom' - 自定义
     // text使用
     // select使用
     strSelectStroageName: { type: String, default: "" },
@@ -65,7 +72,7 @@ export default {
         return [];
       },
     },
-    //
+    // upload使用
   },
   data() {
     return {};
@@ -126,6 +133,12 @@ export default {
       }
     },
     //////////////////////////////////////////////////
+    // upload使用
+    //////////////////////////////////////////////////
+    handleUploadFileChange(file, fileList) {
+      // console.log("VTItem handleUploadFileChange", file, fileList);
+      this.$emit("onUploadFileChange", file, fileList);
+    },
   },
   mounted() {
     if (this.strSelectStroageName) {

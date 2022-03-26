@@ -11,9 +11,7 @@
             v-model:strSelectValue="strQwCorpid"
             strSelectPlaceholder="企业微信ID"
             v-model:arrSelectList="arrQwCorpidList"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item
             label="corpsecret"
@@ -22,9 +20,7 @@
             v-model:strSelectValue="strQwCorpsecret"
             strSelectPlaceholder="企业应用secret"
             v-model:arrSelectList="arrQwCorpsecretList"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item label="" type="custom">
             <template #custom>
@@ -71,28 +67,11 @@
             </template>
           </v-t-item>
 
-          <v-t-item label="media" type="custom">
-            <template #custom>
-              <el-upload
-                class="detail-qw-upload-media-item"
-                drag
-                action="#"
-                list-type="picture"
-                :multiple="false"
-                :show-file-list="true"
-                :file-list="arrQwUploadMediaFileList"
-                :http-request="handleQwUploadMediaHttpRequest"
-                :on-change="handleQwUploadMediaChange"
-                :on-remove="handleQwUploadMediaRemove"
-                :before-upload="handleQwUploadMediaBeforeUpload"
-              >
-                <div class="iconfont icon-cloud-upload" />
-                <div class="el-upload__text">
-                  将文件拖到此处，或<em>点击上传</em>
-                </div>
-              </el-upload>
-            </template>
-          </v-t-item>
+          <v-t-item
+            label="media"
+            type="upload"
+            @onUploadFileChange="handleQwUploadMediaChange"
+          />
 
           <v-t-item label="" type="custom">
             <template #custom>
@@ -171,7 +150,6 @@ export default {
         { label: "video类型(10MB,支持MP4格式)", value: "video" },
         { label: "file类型(20MB)", value: "file" },
       ], // 上传媒体文件类型列表
-      arrQwUploadMediaFileList: [], // 上传文件列表（只能有一个）
       objQwUploadMediaFile: null,
       isQwUploadMediaBtnLoading: false, // 上传临时素材按钮loading状态控制
 
@@ -196,35 +174,9 @@ export default {
         this.strQwAccessToken = res?.body?.access_token;
       }
     },
-    // 覆盖element的默认上传文件
-    handleQwUploadMediaHttpRequest(data) {
-      this.objQwUploadMediaFile = data?.file;
-    },
     // 限制文件上传的个数只有一个，获取上传列表的最后一个
     handleQwUploadMediaChange(file, fileList) {
-      // console.log("handleQwUploadMediaChange", file, fileList);
-      if (fileList.length > 0) {
-        this.arrQwUploadMediaFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
-      }
-    },
-    // 移除文件列表
-    handleQwUploadMediaRemove(file, fileList) {
-      console.log("handleQwUploadMediaRemove", file, fileList);
-      this.arrQwUploadMediaFileList = [];
-      this.objQwUploadMediaFile = null;
-    },
-    // 上传文件之前的钩子，校验文件类型。参数为上传的文件，若返回 false 或者返回 Promise 且被 reject，则停止上传。
-    handleQwUploadMediaBeforeUpload(file) {
-      // const fileType = file.name.substring(file.name.lastIndexOf("."));
-      // if (
-      //   fileType.toLowerCase() !== ".txt" &&
-      //   fileType.toLowerCase() !== ".xml"
-      // ) {
-      //   this.$message.error("文件必须为.txt或.xml类型");
-      //   this.fileList = [];
-      //   return false;
-      // }
-      return true;
+      this.objQwUploadMediaFile = file?.raw;
     },
     // 点击上传临时素材按钮
     @VerifyParams(["objQwUploadMediaFile"])

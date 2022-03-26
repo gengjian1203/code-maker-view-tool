@@ -11,15 +11,14 @@
             v-model:strSelectValue="strQwRobotWebhook"
             strSelectPlaceholder="https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"
             v-model:arrSelectList="arrQwRobotWebhookList"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item label="消息类型" type="custom">
             <template #custom>
               <el-select
                 class="detail-qw-robot-item"
                 v-model="strQwRobotMsgtype"
+                :disabled="!strQwRobotWebhook"
               >
                 <el-option
                   v-for="item in arrQwRobotMsgtypeList"
@@ -69,32 +68,12 @@
           <v-t-item
             v-if="strQwRobotMsgtype === 'image'"
             label="图片"
-            type="custom"
-          >
-            <template #custom>
-              <el-upload
-                class="detail-qw-robot-item"
-                drag
-                action="#"
-                list-type="picture"
-                :multiple="false"
-                :show-file-list="true"
-                :file-list="arrImageFileList"
-                :http-request="handleImageHttpRequest"
-                :on-change="handleImageChange"
-                :on-remove="handleImageRemove"
-                :before-upload="handleImageBeforeUpload"
-              >
-                <div class="iconfont icon-cloud-upload" />
-                <div class="el-upload__text">
-                  将文件拖到此处，或<em>点击上传</em>
-                </div>
-              </el-upload>
-            </template>
-          </v-t-item>
+            type="upload"
+            @onUploadFileChange="handleImageChange"
+          />
 
           <v-t-item
-            v-if="strQwRobotMsgtype === 'image' && arrImageFileList?.length > 0"
+            v-if="strQwRobotMsgtype === 'image'"
             label="base64编码"
             type="custom"
           >
@@ -109,7 +88,7 @@
           </v-t-item>
 
           <v-t-item
-            v-if="strQwRobotMsgtype === 'image' && arrImageFileList?.length > 0"
+            v-if="strQwRobotMsgtype === 'image'"
             label="md5值"
             type="custom"
           >
@@ -203,29 +182,9 @@
           <v-t-item
             v-if="strQwRobotMsgtype === 'file'"
             label="文件"
-            type="custom"
-          >
-            <template #custom>
-              <el-upload
-                class="detail-qw-robot-item"
-                drag
-                action="#"
-                list-type="picture"
-                :multiple="false"
-                :show-file-list="true"
-                :file-list="arrFileFileList"
-                :http-request="handleFileHttpRequest"
-                :on-change="handleFileChange"
-                :on-remove="handleFileRemove"
-                :before-upload="handleFileBeforeUpload"
-              >
-                <div class="iconfont icon-cloud-upload" />
-                <div class="el-upload__text">
-                  将文件拖到此处，或<em>点击上传</em>
-                </div>
-              </el-upload>
-            </template>
-          </v-t-item>
+            type="upload"
+            @onUploadFileChange="handleFileChange"
+          />
 
           <v-t-item
             v-if="strQwRobotMsgtype === 'file'"
@@ -308,7 +267,6 @@ export default {
       // 图片类型
       strImageBase64: "",
       strImageMD5: "",
-      arrImageFileList: [],
       // 图文类型
       arrNewsArticles: [
         {
@@ -319,7 +277,6 @@ export default {
         },
       ],
       // 文件类型
-      arrFileFileList: [],
       strFileMediaId: "",
       // 模版卡片类型
 
@@ -347,7 +304,6 @@ export default {
       // 图片类型
       this.strImageBase64 = "";
       this.strImageMD5 = "";
-      this.arrImageFileList = [];
       // 图文类型
       this.arrNewsArticles = [
         {
@@ -358,40 +314,23 @@ export default {
         },
       ];
       // 文件类型
-      this.arrFileFileList = [];
       this.strFileMediaId = "";
       // 模版卡片类型
     },
-    // 图片类型：覆盖element的默认上传文件
-    async handleImageHttpRequest(data) {
-      const image = data.file; // 获取文件域中选中的图片
-      const base64 = await file2Base64(image);
-      this.strImageBase64 = base64.split(";base64,")[1];
-      const buffer = await file2Buffer(image);
-      this.strImageMD5 = md5(buffer);
-      // console.log(image);
-      // console.log("handleImageHttpRequest base64", base64);
-      // console.log("handleImageHttpRequest buffer", buffer);
-    },
-    // 图片类型：限制文件上传的个数只有一个，获取上传列表的最后一个
-    handleImageChange(file, fileList) {
-      if (fileList.length > 0) {
-        this.arrImageFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
+    // 图片类型：图片上传
+    async handleImageChange(file, fileList) {
+      const image = file?.raw; // 获取文件域中选中的图片
+      if (image) {
+        const base64 = await file2Base64(image);
+        this.strImageBase64 = base64.split(";base64,")[1];
+        const buffer = await file2Buffer(image);
+        this.strImageMD5 = md5(buffer);
       }
     },
-    // 图片类型：移除文件列表
-    handleImageRemove(file, fileList) {
-      // console.log("handleQwUploadMediaRemove", file, fileList);
-      this.arrImageFileList = [];
-    },
-    // 图片类型：
-    handleImageBeforeUpload() {
-      return true;
-    },
-    // 文件类型：覆盖element的默认上传文件
-    async handleFileHttpRequest(data) {
+    // 文件类型：限制文件上传的个数只有一个，获取上传列表的最后一个
+    async handleFileChange(file, fileList) {
       this.strFileMediaId = "";
-      const objFileMediaFile = data?.file;
+      const objFileMediaFile = file?.raw;
       console.log("handleFileHttpRequest");
       const params = new FormData();
       const { params: p } = router2Params(this.strQwRobotWebhook);
@@ -410,21 +349,6 @@ export default {
       } else {
         ElMessage.error(`${res?.body?.errmsg}`);
       }
-    },
-    // 文件类型：限制文件上传的个数只有一个，获取上传列表的最后一个
-    handleFileChange(file, fileList) {
-      if (fileList.length > 0) {
-        this.arrFileFileList = [fileList[fileList.length - 1]]; // 只取展示最后一次选择的文件
-      }
-    },
-    // 文件类型：移除文件列表
-    handleFileRemove(file, fileList) {
-      // console.log("handleQwUploadMediaRemove", file, fileList);
-      this.arrFileFileList = [];
-    },
-    // 文件类型：
-    handleFileBeforeUpload() {
-      return true;
     },
     // 图文类型：增加图文项
     handleNewsArticlesAddClick() {

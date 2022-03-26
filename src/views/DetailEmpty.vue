@@ -10,9 +10,7 @@
             v-model:strSelectValue="strSelectValueTest"
             :strSelectPlaceholder="strSelectPlaceholder"
             v-model:arrSelectList="arrSelectListTest"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item label="" type="custom">
             <template #custom>

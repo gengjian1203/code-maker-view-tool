@@ -26,6 +26,13 @@ export const arrMenuListTemp = [
         component: "DetailToolWXMiniTrial",
         pageName: "PageTool_DetailToolWXMiniTrial",
       },
+      {
+        title: "压缩图片",
+        icon: "icon-file-image",
+        desc: "Tinify压缩图片",
+        component: "DetailToolTinifyImage",
+        pageName: "PageTool_DetailToolTinifyImage",
+      },
       // {
       //   title: "测试模块",
       //   icon: "icon-link1",

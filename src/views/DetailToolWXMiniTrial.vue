@@ -10,9 +10,7 @@
             v-model:strSelectValue="strTrialAppid"
             strSelectPlaceholder="小程序appid(以wx开头)"
             v-model:arrSelectList="arrTrialAppidList"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item
             label="小程序path"
@@ -21,9 +19,7 @@
             v-model:strSelectValue="strTrialPath"
             strSelectPlaceholder="小程序path(不以/开头，以.html结尾)"
             v-model:arrSelectList="arrTrialPathList"
-          >
-            <template #select />
-          </v-t-item>
+          />
 
           <v-t-item label="参数数量" type="custom">
             <template #custom>
