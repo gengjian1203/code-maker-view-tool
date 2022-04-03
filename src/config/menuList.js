@@ -136,6 +136,28 @@ export const arrMenuListTemp = [
       },
     ],
   },
+  // {
+  //   name: "微信小程序",
+  //   component: "PageContent",
+  //   pageName: "PageWxMini",
+  //   icon: { "icon-wechat-fill": true },
+  //   list: [
+  //     // {
+  //     //   title: "无限小程序码",
+  //     //   icon: "icon-robot1",
+  //     //   desc: "生成无限小程序码",
+  //     //   component: "DetailWxMiniCode",
+  //     //   pageName: "PageQwapi_DetailWxMiniCode",
+  //     // },
+  //     {
+  //       title: "Ocr识别",
+  //       icon: "icon-filesearch",
+  //       desc: "通用印刷体OCR识别",
+  //       component: "DetailWxMiniOcrImage",
+  //       pageName: "PageTool_DetailWxMiniOcrImage",
+  //     },
+  //   ],
+  // },
 ];
 
 export default {
