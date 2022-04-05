@@ -206,9 +206,12 @@ export default {
       params.append("appid", this.strOcrImageAppid);
       params.append("secret", this.strOcrImageSecret);
       params.append("accessToken", this.strOcrImageAccessToken);
-      params.append("image", this.objOcrImageSource);
+      params.append("img", this.objOcrImageSource);
 
-      const res = await Api.DetailWxMini.ocrImageCommon(params);
+      const res = await Api.DetailWxMini.ocrImageCommon(
+        params,
+        this.strOcrImageAccessToken
+      );
       console.log("handleOcrImageDealBtnClick", res);
       if (res?.body?.errcode === 0) {
       } else if (res?.body?.message) {

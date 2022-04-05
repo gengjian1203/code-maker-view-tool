@@ -23,7 +23,7 @@ export const getAccessTokenMini = async (params) => {
  *  appid: String 小程序ID
  *  secret: String 小程序秘钥
  *  accessToken: String 登录凭证
- *  image: File 图片文件
+ *  img: File 图片文件
  * }
  * 内容类型为multipart/form-data
  */
@@ -36,6 +36,16 @@ export const ocrImageCommon = async (params) => {
   );
   return res?.data || {};
 };
+// 本地跨域请求
+// export const ocrImageCommon = async (params, access_token) => {
+//   console.log("ocrImageCommon", params);
+//   const res = await FetchManager.execAxiosPOST(
+//     `https://api.weixin.qq.com/cv/ocr/comm?img_url=ENCODE_URL&access_token=${access_token}`,
+//     params,
+//     { headers: { "Content-Type": "multipart/form-data" } }
+//   );
+//   return res?.data || {};
+// };
 
 export default {
   getAccessTokenMini,
