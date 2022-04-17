@@ -35,10 +35,17 @@ export const arrMenuListTemp = [
       },
       {
         title: "生成二维码",
-        icon: "icon-file-image",
+        icon: "icon-QRcode",
         desc: "生成二维码",
-        component: "DetailToolQRCodeCreate",
-        pageName: "PageTool_DetailToolQRCodeCreate",
+        component: "DetailToolQRCodeEncode",
+        pageName: "PageTool_DetailToolQRCodeEncode",
+      },
+      {
+        title: "解析二维码",
+        icon: "icon-QRcode",
+        desc: "解析二维码",
+        component: "DetailToolQRCodeDecode",
+        pageName: "PageTool_DetailToolQRCodeDecode",
       },
       // {
       //   title: "测试模块",

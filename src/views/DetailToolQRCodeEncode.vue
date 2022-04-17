@@ -5,11 +5,11 @@
         <template #body>
           <v-t-item label="二维码信息" type="custom">
             <template #custom>
-              <div class="flex-between-h detail-tool-qrcode-create-item">
+              <div class="flex-between-h detail-tool-qrcode-encode-item">
                 <el-input
-                  class="detail-tool-qrcode-create-item-content"
+                  class="detail-tool-qrcode-encode-item-content"
                   type="textarea"
-                  v-model="strQrcodeCreateContent"
+                  v-model="strQrcodeEncodeContent"
                   placeholder="请输入待生成二维码的信息"
                 />
               </div>
@@ -20,21 +20,21 @@
           <v-t-item
             label="二维码Logo"
             type="upload"
-            @onUploadFileChange="handleQrcodeCreateLogoChange"
+            @onUploadFileChange="handleQrcodeEncodeLogoChange"
           />
 
           <v-t-item label="Logo base64编码" type="custom">
             <template #custom>
-              <div class="flex-between-h detail-tool-qrcode-create-item">
+              <div class="flex-between-h detail-tool-qrcode-encode-item">
                 <el-input
-                  class="detail-tool-qrcode-create-item-content"
+                  class="detail-tool-qrcode-encode-item-content"
                   type="textarea"
-                  v-model="strQrcodeCreateLogoBase64Source"
+                  v-model="strQrcodeEncodeLogoBase64Source"
                   placeholder="logo内容的base64编码"
                 />
                 <el-button
                   type="primary"
-                  @click="handleTinifyImageBase64SourceCopyClick"
+                  @click="handleQrcodeEncodeLogoBase64SourceCopyClick"
                 >
                   复制
                 </el-button>
@@ -44,7 +44,7 @@
 
           <el-button
             type="primary"
-            @click="handleDetailToolQRCodeCreateBtnClick"
+            @click="handleDetailToolQRCodeEncodeBtnClick"
             >生成</el-button
           >
         </template>
@@ -58,7 +58,7 @@
         <template #body>
           <v-t-item label="二维码预览" type="custom">
             <template #custom>
-              <div class="flex-between-h detail-tool-qrcode-create-item">
+              <div class="flex-between-h detail-tool-qrcode-encode-item">
                 <v-t-canvas-draw
                   canvasId="qrCodeLogo"
                   :canvasWidth="CANVAS_WIDTH"
@@ -82,9 +82,9 @@
 
           <v-t-item label="二维码 base64编码" type="custom">
             <template #custom>
-              <div class="flex-between-h detail-tool-qrcode-create-item">
+              <div class="flex-between-h detail-tool-qrcode-encode-item">
                 <el-input
-                  class="detail-tool-qrcode-create-item-content"
+                  class="detail-tool-qrcode-encode-item-content"
                   type="textarea"
                   v-model="strQRCodeFinishBase64"
                   placeholder="二维码内容的base64编码"
@@ -109,11 +109,10 @@ import VTCanvasDraw from "@/components/VTCanvasDraw";
 import VTCardModule from "@/components/VTCardModule";
 import VTItem from "@/components/VTItem";
 import VTWrapDetail from "@/components/VTWrapDetail";
-import AutoStatusLoading from "@/decorator/AutoStatusLoading";
 import { downloadFile, file2Base64, setClipboardData } from "@/kits/index";
 
 export default {
-  name: "DetailToolQRCodeCreate",
+  name: "DetailToolQRCodeEncode",
   components: {
     VTCanvasDraw,
     VTCardModule,
@@ -137,8 +136,8 @@ export default {
       LOGO_SIZE: 72,
       CANVAS_WIDTH: 300,
       //
-      strQrcodeCreateContent: "", // 二维码存储信息
-      strQrcodeCreateLogoBase64Source: "", // 二维码Logo Base64
+      strQrcodeEncodeContent: "", // 二维码存储信息
+      strQrcodeEncodeLogoBase64Source: "", // 二维码Logo Base64
       //
       isShowCanvas: false, // 是否生成二维码
       qrCodeCanvasConfig: [], // 绘制二维码元素
@@ -147,13 +146,13 @@ export default {
   },
   methods: {
     // 点击复制logo Base64按钮
-    handleTinifyImageBase64SourceCopyClick() {
-      setClipboardData(this.strQrcodeCreateLogoBase64Source);
+    handleQrcodeEncodeLogoBase64SourceCopyClick() {
+      setClipboardData(this.strQrcodeEncodeLogoBase64Source);
     },
     // 点击生成按钮
-    handleDetailToolQRCodeCreateBtnClick() {
+    handleDetailToolQRCodeEncodeBtnClick() {
       const base64 = tcQrcode.encodeAsBase64({
-        text: this.strQrcodeCreateContent,
+        text: this.strQrcodeEncodeContent,
         width: this.QRCODE_SIZE, // 默认值 256
         height: this.QRCODE_SIZE, // 默认值 256
         typeNumber: 4, // 默认值 4
@@ -161,7 +160,7 @@ export default {
         colorLight: "#ffffff", // 默认值 '#ffffff'
         correctLevel: 2, // 默认值 2
       });
-      console.log("handleDetailToolQRCodeCreateBtnClick", base64);
+      console.log("handleDetailToolQRCodeEncodeBtnClick", base64);
 
       const qrCodeCanvasConfigTmp = [
         {
@@ -184,10 +183,10 @@ export default {
           height: this.QRCODE_SIZE,
         },
       ];
-      if (this.strQrcodeCreateLogoBase64Source) {
+      if (this.strQrcodeEncodeLogoBase64Source) {
         qrCodeCanvasConfigTmp.push({
           type: "image",
-          src: this.strQrcodeCreateLogoBase64Source,
+          src: this.strQrcodeEncodeLogoBase64Source,
           x: (this.CANVAS_WIDTH - this.LOGO_SIZE) / 2,
           y: (this.CANVAS_WIDTH - this.LOGO_SIZE) / 2,
           width: this.LOGO_SIZE,
@@ -199,18 +198,18 @@ export default {
       this.qrCodeCanvasConfig = qrCodeCanvasConfigTmp;
     },
     // 上传图片
-    async handleQrcodeCreateLogoChange(file, fileList) {
+    async handleQrcodeEncodeLogoChange(file, fileList) {
       console.log(
-        "DetailToolQRCodeCreate handleQrcodeCreateLogoChange",
+        "DetailToolQRCodeEncode handleQrcodeEncodeLogoChange",
         file?.raw
       );
       const image = file?.raw;
       if (image) {
-        this.strQrcodeCreateLogoBase64Source = await file2Base64(image);
-        // this.objQrcodeCreateLogoSource = image;
+        this.strQrcodeEncodeLogoBase64Source = await file2Base64(image);
+        // this.objQrcodeEncodeLogoSource = image;
       } else {
-        this.strQrcodeCreateLogoBase64Source = "";
-        // this.objQrcodeCreateLogoSource = null;
+        this.strQrcodeEncodeLogoBase64Source = "";
+        // this.objQrcodeEncodeLogoSource = null;
       }
     },
     // 二维码生成完毕回调
@@ -236,15 +235,15 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.detail-tool-qrcode-create-item {
+.detail-tool-qrcode-encode-item {
   width: 100%;
 }
 
-.detail-tool-qrcode-create-item-content {
+.detail-tool-qrcode-encode-item-content {
   width: 100%;
 }
 
-.detail-tool-qrcode-create-item-content + .el-button {
+.detail-tool-qrcode-encode-item-content + .el-button {
   margin-left: var(--margin-xs);
 }
 
