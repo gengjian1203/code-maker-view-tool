@@ -33,6 +33,13 @@ export const arrMenuListTemp = [
         component: "DetailToolTinifyImage",
         pageName: "PageTool_DetailToolTinifyImage",
       },
+      {
+        title: "生成二维码",
+        icon: "icon-file-image",
+        desc: "生成二维码",
+        component: "DetailToolQRCodeCreate",
+        pageName: "PageTool_DetailToolQRCodeCreate",
+      },
       // {
       //   title: "测试模块",
       //   icon: "icon-link1",
