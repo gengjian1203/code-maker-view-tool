@@ -11,7 +11,7 @@ import router2Params from "./router2Params";
  * @returns 追加参数后的路由字符串
  */
 export const routerAppendParams = (strPath, objParams, objExtend) => {
-  const { order = "append", encode = true } = objExtend || {};
+  const { order = "append", encode = false } = objExtend || {};
   const { path: sourcePath = "", params: sourceParams = {} } =
     router2Params(strPath);
   // console.log("routerAppendParams", sourcePath, sourceParams);
