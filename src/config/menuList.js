@@ -47,6 +47,13 @@ export const arrMenuListTemp = [
         component: "DetailToolQRCodeDecode",
         pageName: "PageTool_DetailToolQRCodeDecode",
       },
+      {
+        title: "自定义图片",
+        icon: "icon-shuffling-banner",
+        desc: "生成自定义宽高图片",
+        component: "DetailToolCustomImage",
+        pageName: "PageTool_DetailToolCustomImage",
+      },
       // {
       //   title: "测试模块",
       //   icon: "icon-link1",

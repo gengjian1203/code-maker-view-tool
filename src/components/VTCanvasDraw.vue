@@ -131,12 +131,14 @@ export default {
     // 绘制普通文本类型
     draw_text(info) {
       const realInfo = this.dealInfo(info);
-      const { text, textAlign, color, size, x, y } = realInfo || {};
+      const { text, textAlign, textBaseline, color, size, x, y } =
+        realInfo || {};
 
       // console.log("draw_text", info, realInfo);
       if (this.ctx && text) {
         this.ctx.fillStyle = color;
         this.ctx.textAlign = textAlign;
+        this.ctx.textBaseline = textBaseline;
         this.ctx.font = `${size}px sans-serif`;
         this.ctx.fillText(text, x, y);
         this.ctx.save();

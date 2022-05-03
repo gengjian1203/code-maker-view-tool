@@ -18,15 +18,16 @@
 
 > text (普通文本类型)
 
-| 参数      | 类型   | 含义                | 是否必填 | 说明 |
-| :-------- | :----- | :------------------ | :------: | :--- |
-| type      | String | 元素类型            |    是    | text |
-| text      | String | 文本内容            |    是    | /    |
-| textAlign | String | 文本样式            |    是    | /    |
-| color     | Number | 元素颜色            |    是    | /    |
-| size      | Number | 文本大小            |    是    | /    |
-| x         | Number | 元素左上角 x 轴坐标 |    是    | /    |
-| y         | Number | 元素左上角 y 轴坐标 |    是    | /    |
+| 参数         | 类型   | 含义                | 是否必填 | 说明                                                       |
+| :----------- | :----- | :------------------ | :------: | :--------------------------------------------------------- |
+| type         | String | 元素类型            |    是    | text                                                       |
+| text         | String | 文本内容            |    是    | /                                                          |
+| textAlign    | String | 文本 X 轴样式       |    是    | start / end / left / right / center                        |
+| textBaseline | String | 文本 Y 轴样式       |    是    | top / middle / bottom / alphabetic / hanging / ideographic |
+| color        | String | 元素颜色            |    是    | /                                                          |
+| size         | Number | 文本大小            |    是    | /                                                          |
+| x            | Number | 元素左上角 x 轴坐标 |    是    | /                                                          |
+| y            | Number | 元素左上角 y 轴坐标 |    是    | /                                                          |
 
 > textMulti (多行文本类型)
 
@@ -35,7 +36,7 @@
 | type       | String | 元素类型            |    是    | textMulti |
 | text       | String | 文本内容            |    是    | /         |
 | textAlign  | String | 文本样式            |    是    | /         |
-| color      | Number | 元素颜色            |    是    | /         |
+| color      | String | 元素颜色            |    是    | /         |
 | size       | Number | 文本大小            |    是    | /         |
 | x          | Number | 元素左上角 x 轴坐标 |    是    | /         |
 | y          | Number | 元素左上角 y 轴坐标 |    是    | /         |
