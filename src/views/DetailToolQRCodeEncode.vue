@@ -61,8 +61,8 @@
               <div class="flex-between-h detail-tool-qrcode-encode-item">
                 <v-t-canvas-draw
                   canvasId="qrCodeLogo"
-                  :canvasWidth="CANVAS_WIDTH"
-                  canvasHeight="300"
+                  :canvasWidth="CANVAS_SIZE"
+                  :canvasHeight="CANVAS_SIZE"
                   canvasBGColor="#ffffff"
                   canvasQuality="0.92"
                   canvasScale="1"
@@ -134,7 +134,7 @@ export default {
       QRCODE_PADDING: 32,
       QRCODE_BORDER_RADIUS: 10,
       LOGO_SIZE: 72,
-      CANVAS_WIDTH: 300,
+      CANVAS_SIZE: 300,
       //
       strQrcodeEncodeContent: "", // 二维码存储信息
       strQrcodeEncodeLogoBase64Source: "", // 二维码Logo Base64
@@ -168,8 +168,8 @@ export default {
           color: "#ffffff",
           lineColor: "#e0e0e0",
           lineWidth: 2,
-          x: (this.CANVAS_WIDTH - this.QRCODE_SIZE - this.QRCODE_PADDING) / 2,
-          y: (this.CANVAS_WIDTH - this.QRCODE_SIZE - this.QRCODE_PADDING) / 2,
+          x: (this.CANVAS_SIZE - this.QRCODE_SIZE - this.QRCODE_PADDING) / 2,
+          y: (this.CANVAS_SIZE - this.QRCODE_SIZE - this.QRCODE_PADDING) / 2,
           width: this.QRCODE_SIZE + this.QRCODE_PADDING,
           height: this.QRCODE_SIZE + this.QRCODE_PADDING,
           radius: this.QRCODE_BORDER_RADIUS,
@@ -177,8 +177,8 @@ export default {
         {
           type: "image",
           src: base64,
-          x: (this.CANVAS_WIDTH - this.QRCODE_SIZE) / 2,
-          y: (this.CANVAS_WIDTH - this.QRCODE_SIZE) / 2,
+          x: (this.CANVAS_SIZE - this.QRCODE_SIZE) / 2,
+          y: (this.CANVAS_SIZE - this.QRCODE_SIZE) / 2,
           width: this.QRCODE_SIZE,
           height: this.QRCODE_SIZE,
         },
@@ -187,8 +187,8 @@ export default {
         qrCodeCanvasConfigTmp.push({
           type: "image",
           src: this.strQrcodeEncodeLogoBase64Source,
-          x: (this.CANVAS_WIDTH - this.LOGO_SIZE) / 2,
-          y: (this.CANVAS_WIDTH - this.LOGO_SIZE) / 2,
+          x: (this.CANVAS_SIZE - this.LOGO_SIZE) / 2,
+          y: (this.CANVAS_SIZE - this.LOGO_SIZE) / 2,
           width: this.LOGO_SIZE,
           height: this.LOGO_SIZE,
         });
