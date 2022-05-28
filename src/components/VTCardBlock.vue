@@ -36,11 +36,8 @@ export default {
 
 <style lang="less" scoped>
 .vt-block-wrap {
-  flex: 0 0 auto;
-  width: 2rem;
+  box-sizing: border-box;
   height: 2rem;
-  margin: var(--margin-base);
-  align-items: center;
 
   .vt-block-title {
     // margin-top: var(--margin-base);

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex-start-h page-content-wrap">
+  <div class="page-content-wrap">
     <v-t-card-block
       v-for="(item, index) in info.list"
       :key="index"
@@ -48,6 +48,9 @@ export default {
 
 <style lang="less" scoped>
 .page-content-wrap {
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
+  grid-gap: var(--margin-base) var(--margin-base);
+  gap: var(--margin-base) var(--margin-base);
 }
 </style>
