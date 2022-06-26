@@ -270,6 +270,24 @@ export default {
       // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
       // deep: true, // 为true，表示深度监听
     },
+    colorImage: {
+      handler(newValue) {
+        if (newValue === null) {
+          this.colorImage = "transparent";
+        }
+      },
+      // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听
+    },
+    colorText: {
+      handler(newValue) {
+        if (newValue === null) {
+          this.colorText = "transparent";
+        }
+      },
+      // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听
+    },
     strBase64Source: {
       handler(newValue) {
         this.updateBase64State(newValue);
