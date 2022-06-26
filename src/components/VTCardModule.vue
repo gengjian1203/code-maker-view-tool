@@ -140,9 +140,9 @@ export default {
 
   .vt-module-header {
     margin-bottom: var(--margin-base);
-    flex: 0 0 0.24rem;
-    height: 0.32rem;
-    line-height: 0.32rem;
+    flex: 0 0 24px;
+    height: 32px;
+    line-height: 32px;
 
     .vt-module-header-left {
       flex: 1 1 auto;
@@ -161,9 +161,9 @@ export default {
         position: absolute;
         top: 0;
         left: 0;
-        width: 0.08rem;
-        height: 0.32rem;
-        border-radius: 0 0.06rem 0.06rem 0;
+        width: 8px;
+        height: 32px;
+        border-radius: 0 6px 6px 0;
         background-color: #6cacf8;
       }
     }

@@ -156,8 +156,8 @@ export default {
 .vt-item-wrap {
   margin-top: var(--margin-xs);
   height: auto;
-  min-height: 0.52rem;
-  line-height: 0.52rem;
+  min-height: 52px;
+  line-height: 52px;
   align-items: flex-start;
 
   .vt-item-label {
@@ -180,8 +180,8 @@ export default {
   .vt-item-custom {
     flex: 1 1 auto;
     width: 0;
-    min-height: 0.52rem;
-    line-height: 0.52rem;
+    min-height: 52px;
+    line-height: 52px;
     align-items: center;
   }
 }

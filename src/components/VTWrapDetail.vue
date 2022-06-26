@@ -45,7 +45,7 @@ export default {
   .vt-wrap-detail-header {
     margin-bottom: var(--margin-sm);
     width: 100%;
-    height: 0.36rem;
+    height: 36px;
     .vt-wrap-detail-header-left {
     }
     .vt-wrap-detail-header-right {

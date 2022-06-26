@@ -13,7 +13,7 @@
                   placeholder="宽度"
                 />
               </div>
-              px
+              <div class="detail-tool-custom-image-item-content-text">px</div>
             </template>
           </v-t-item>
 
@@ -26,7 +26,7 @@
                   v-model="strHeight"
                   placeholder="高度"
                 />
-                px
+                <div class="detail-tool-custom-image-item-content-text">px</div>
               </div>
             </template>
           </v-t-item>
@@ -61,7 +61,7 @@
                   v-model="strFontSize"
                   placeholder="字号"
                 />
-                px
+                <div class="detail-tool-custom-image-item-content-text">px</div>
               </div>
             </template>
           </v-t-item>
@@ -190,6 +190,22 @@ export default {
       downloadFile(`image_${new Date().getTime()}`, this.strImageFinishBase64);
     },
   },
+  watch: {
+    strWidth: {
+      handler(newValue) {
+        this.strWidthReal = newValue;
+      },
+      // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听
+    },
+    strHeight: {
+      handler(newValue) {
+        this.strHeightReal = newValue;
+      },
+      // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      // deep: true, // 为true，表示深度监听
+    },
+  },
 };
 </script>
 
@@ -209,6 +225,10 @@ export default {
 
 .detail-tool-custom-image-item-content + .el-button {
   margin-left: var(--margin-xs);
+}
+
+.detail-tool-custom-image-item-content-text {
+  font-size: var(--font-size-xs);
 }
 
 .scroll-h + .btn-download {

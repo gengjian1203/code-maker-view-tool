@@ -37,7 +37,7 @@ export default {
 <style lang="less" scoped>
 .vt-block-wrap {
   box-sizing: border-box;
-  height: 2rem;
+  height: 200px;
 
   .vt-block-title {
     // margin-top: var(--margin-base);

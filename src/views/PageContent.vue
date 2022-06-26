@@ -49,7 +49,7 @@ export default {
 <style lang="less" scoped>
 .page-content-wrap {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(2rem, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   grid-gap: var(--margin-base) var(--margin-base);
   gap: var(--margin-base) var(--margin-base);
 }
