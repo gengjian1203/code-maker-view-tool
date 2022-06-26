@@ -112,11 +112,15 @@ export default {
     async createImage(src) {
       // console.log("createImage");
       return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = src;
-        img.onload = (res) => {
-          resolve(img);
-        };
+        try {
+          const img = new Image();
+          img.src = src;
+          img.onload = (res) => {
+            resolve(img);
+          };
+        } catch (e) {
+          resolve(null);
+        }
       });
     },
     // 清空画布
@@ -236,10 +240,12 @@ export default {
       if (src) {
         const img = await this.createImage(src);
         // console.log("createImage", img);
-        const drawWidth = width || img.width;
-        const drawHeight = height || img.height;
-        src && this.ctx.drawImage(img, x, y, drawWidth, drawHeight);
-        this.ctx.save();
+        if (img) {
+          const drawWidth = width || img.width;
+          const drawHeight = height || img.height;
+          src && this.ctx.drawImage(img, x, y, drawWidth, drawHeight);
+          this.ctx.save();
+        }
       }
     },
   },
