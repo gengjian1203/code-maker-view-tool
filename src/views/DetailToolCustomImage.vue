@@ -31,6 +31,19 @@
             </template>
           </v-t-item>
 
+          <v-t-item label="图片格式" type="custom">
+            <template #custom>
+              <div class="flex-between-h detail-tool-custom-image-item">
+                <el-radio-group v-model="strImageType">
+                  <el-radio label="image/png" size="large">png</el-radio>
+                  <!-- <el-radio label="image/jpg" size="large">jpg</el-radio> -->
+                  <el-radio label="image/jpeg" size="large">jpeg</el-radio>
+                  <el-radio label="image/webp" size="large">webp</el-radio>
+                </el-radio-group>
+              </div>
+            </template>
+          </v-t-item>
+
           <v-t-item label="背景颜色" type="custom">
             <template #custom>
               <div class="flex-between-h detail-tool-custom-image-item">
@@ -46,7 +59,7 @@
                   class="detail-tool-custom-image-item-content"
                   type="text"
                   v-model="strText"
-                  placeholder="字文字内容"
+                  placeholder="图片插入文字内容"
                 />
               </div>
             </template>
@@ -116,9 +129,9 @@
                     canvasId="customImage"
                     :canvasWidth="strWidthReal"
                     :canvasHeight="strHeightReal"
-                    :canvasBGColor="colorImage"
+                    :canvasBGColor="colorImageReal"
                     canvasQuality="0.92"
-                    canvasScale="1"
+                    :canvasType="strImageType"
                     :canvasConfig="imageCanvasConfig"
                     @onCanvasDrawComplete="handleCanvasDrawComplete"
                   />
@@ -171,10 +184,13 @@ export default {
       strHeight: "300",
       strWidthReal: "400",
       strHeightReal: "300",
+      strImageType: "image/png",
       colorImage: "#ff0000",
-      strText: "写点神马吧",
+      colorImageReal: "#ff0000",
+      strText: "",
       strFontSize: "18",
-      colorText: "#00ffff",
+      colorText: "#0000ff",
+      colorTextReal: "#0000ff",
       strBase64Source: "",
 
       //
@@ -235,7 +251,7 @@ export default {
         text: this.strText,
         textAlign: "center",
         textBaseline: "middle",
-        color: this.colorText,
+        color: this.colorTextReal,
         size: parseFloat(this.strFontSize),
         x: parseFloat(this.strWidth) / 2,
         y: parseFloat(this.strHeight) / 2,
@@ -272,8 +288,12 @@ export default {
     },
     colorImage: {
       handler(newValue) {
+        // console.log("colorImage", newValue);
         if (newValue === null) {
-          this.colorImage = "transparent";
+          this.colorImageReal =
+            this.strImageType === "image/png" ? "transparent" : "#ffffff";
+        } else {
+          this.colorImageReal = newValue;
         }
       },
       // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
@@ -281,9 +301,7 @@ export default {
     },
     colorText: {
       handler(newValue) {
-        if (newValue === null) {
-          this.colorText = "transparent";
-        }
+        this.colorTextReal = newValue === null ? "transparent" : newValue;
       },
       // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
       // deep: true, // 为true，表示深度监听

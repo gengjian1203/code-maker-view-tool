@@ -31,8 +31,13 @@ export default {
     },
     // 画布压缩比例
     canvasQuality: {
-      type: Number,
-      default: 0.92,
+      type: String,
+      default: "0.92",
+    },
+    // 画布导出图片类型
+    canvasType: {
+      type: String,
+      default: "image/png",
     },
     // 画布缩放比例
     canvasScale: {
@@ -59,6 +64,8 @@ export default {
         this.$nextTick(async () => {
           // console.log("watch canvasConfig", newValue, this.ctx);
           if (this.ctx) {
+            // 清空画布，以防新画布背景色是透明色无法清空
+            this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
             this.draw_rect({
               color: this.canvasBGColor,
               x: 0,
@@ -76,7 +83,10 @@ export default {
 
             this.$emit(
               "onCanvasDrawComplete",
-              this.canvas.toDataURL("image/jpg")
+              this.canvas.toDataURL(
+                this.canvasType,
+                parseFloat(this.canvasQuality)
+              )
             );
           }
         });

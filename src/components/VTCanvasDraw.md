@@ -2,15 +2,16 @@
 
 ## 组件参数说明
 
-| 参数          | 类型   | 默认         | 含义         | 是否必填 | 说明 |
-| :------------ | :----- | :----------- | :----------- | :------- | :--- |
-| canvasId      | String | 'canvasDraw' | 画布 Id      | 否       | /    |
-| canvasWidth   | String | 300          | 画布宽度     | 否       | /    |
-| canvasHeight  | String | 150          | 画布高度     | 否       | /    |
-| canvasBGColor | String | '#fff'       | 画布背景色   | 否       | /    |
-| canvasQuality | Number | 0.92         | 画布压缩比例 | 否       | /    |
-| canvasScale   | Number | 1            | 画布缩放比例 | 否       | /    |
-| canvasConfig  | Array  | []           | 画布元素配置 | 否       | /    |
+| 参数          | 类型   | 默认         | 含义             | 是否必填 | 说明        |
+| :------------ | :----- | :----------- | :--------------- | :------- | :---------- | ------------ |
+| canvasId      | String | 'canvasDraw' | 画布 Id          | 否       | /           |
+| canvasWidth   | String | 300          | 画布宽度         | 否       | /           |
+| canvasHeight  | String | 150          | 画布高度         | 否       | /           |
+| canvasBGColor | String | '#fff'       | 画布背景色       | 否       | /           |
+| canvasQuality | String | 0.92         | 画布压缩比例     | 否       | /           |
+| canvasType    | String | 'image/png'  | 画布导出图片类型 | 否       | 'image/png' | 'image/jpeg' |
+| canvasScale   | Number | 1            | 画布缩放比例     | 否       | /           |
+| canvasConfig  | Array  | []           | 画布元素配置     | 否       | /           |
 
 ## canvasConfig 元素说明
 
