@@ -51,32 +51,46 @@ class FetchManager {
 
   // Axios发起GET请求
   execAxiosGET = async (url = "", params = {}, config = {}) => {
-    const res = await axios.get(routerAppendParams(url, params), config);
-    console.debug("FetchManager get", res);
+    let res = {};
+    try {
+      res = await axios.get(routerAppendParams(url, params), config);
+      console.debug("FetchManager get", res);
+    } catch (e) {
+      console.debug("FetchManager get", e);
+    }
     return res;
   };
 
   // Axios发起POST请求
   execAxiosPOST = async (url = "", params = {}, config = {}) => {
-    const res = await axios.post(url, params, config);
-    console.debug("FetchManager post", res);
+    let res = {};
+    try {
+      await axios.post(url, params, config);
+      console.debug("FetchManager post", res);
+    } catch (e) {
+      console.debug("FetchManager post", e);
+    }
     return res;
   };
 
   // jsonp发起GET请求
   execJsonp = async (url, params) => {
     return new Promise((resolve) => {
-      const urlReal = routerAppendParams(url, params);
-      console.debug("FetchManager execJsonp", urlReal);
-      jsonp(urlReal, null, (err, data) => {
-        if (err) {
-          console.debug("FetchManager execJsonp Fail", err);
-          resolve(err);
-        } else {
-          console.debug("FetchManager execJsonp Success", data);
-          resolve(data);
-        }
-      });
+      try {
+        const urlReal = routerAppendParams(url, params);
+        console.debug("FetchManager execJsonp", urlReal);
+        jsonp(urlReal, null, (err, data) => {
+          if (err) {
+            console.debug("FetchManager execJsonp Fail", err);
+            resolve(err);
+          } else {
+            console.debug("FetchManager execJsonp Success", data);
+            resolve(data);
+          }
+        });
+      } catch (e) {
+        console.debug("FetchManager execJsonp", e);
+      }
     });
   };
 }

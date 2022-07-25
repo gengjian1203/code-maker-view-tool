@@ -13,6 +13,12 @@
         style="width: 100%; height: 100%"
         wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-base);"
       >
+        <el-alert
+          v-if="!isApiActive"
+          style="margin-bottom: 4px"
+          title="后台接口激活中"
+          type="warning"
+        />
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
         <!-- <div>{{ objSelectInfo?.component }}</div> -->
         <v-t-advertising />
@@ -23,9 +29,10 @@
 </template>
 
 <script>
+import { ElMessage } from "element-plus";
+import Api from "@/api";
 import VTAdvertising from "@/components/VTAdvertising";
 import VTMenu from "@/components/VTMenu";
-
 import { arrMenuListTemp } from "@/config/menuList";
 import { navigateTo, navigateBack } from "@/kits";
 
@@ -36,6 +43,7 @@ export default {
   },
   data() {
     return {
+      isApiActive: false,
       arrMenuList: arrMenuListTemp,
       objSelectInfo: {},
     };
@@ -71,10 +79,25 @@ export default {
       navigateTo(pageName);
     },
   },
-  mounted() {
+  async mounted() {
     const con = require("@/services/lib/vconsole.min");
     const vConsole = new con();
     console.log("vConsole", vConsole);
+
+    // 检测接口状态
+    while (!this.isApiActive) {
+      const res = await Api.Common.getActiveState();
+      console.log("getActiveState", res);
+      const { body } = res || {};
+      if (body) {
+        this.isApiActive = true;
+        ElMessage({
+          showClose: true,
+          message: "后台接口已激活",
+          type: "success",
+        });
+      }
+    }
   },
 };
 </script>
