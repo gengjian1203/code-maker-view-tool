@@ -11,9 +11,16 @@
                   type="text"
                   v-model="strWidth"
                   placeholder="宽度"
+                  :disabled="isLockWidth"
                 />
               </div>
               <div class="detail-tool-custom-image-item-content-text">px</div>
+              <el-switch
+                v-model="isLockWidth"
+                inline-prompt
+                active-text="锁"
+                inactive-text="解"
+              />
             </template>
           </v-t-item>
 
@@ -25,9 +32,16 @@
                   type="text"
                   v-model="strHeight"
                   placeholder="高度"
+                  :disabled="isLockHeight"
                 />
                 <div class="detail-tool-custom-image-item-content-text">px</div>
               </div>
+              <el-switch
+                v-model="isLockHeight"
+                inline-prompt
+                active-text="锁"
+                inactive-text="解"
+              />
             </template>
           </v-t-item>
 
@@ -180,13 +194,15 @@ export default {
   data() {
     return {
       // 生成图片字段
+      isLockWidth: false,
+      isLockHeight: false,
       strWidth: "400",
       strHeight: "300",
       strWidthReal: "400",
       strHeightReal: "300",
       strImageType: "image/png",
-      colorImage: "#ff0000",
-      colorImageReal: "#ff0000",
+      colorImage: null,
+      colorImageReal: "transparent",
       strText: "",
       strFontSize: "18",
       colorText: "#0000ff",
@@ -212,8 +228,12 @@ export default {
           // console.log(newImage);
           // console.log(newImage.width);
           // console.log(newImage.height);
-          this.strWidth = newImage.width;
-          this.strHeight = newImage.height;
+          if (!this.isLockWidth) {
+            this.strWidth = newImage.width;
+          }
+          if (!this.isLockHeight) {
+            this.strHeight = newImage.height;
+          }
         };
       }
     },
@@ -296,7 +316,7 @@ export default {
           this.colorImageReal = newValue;
         }
       },
-      // immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
+      immediate: true, // 为true，代表在声明这个方法之后，立即先去执行handler方法
       // deep: true, // 为true，表示深度监听
     },
     colorText: {

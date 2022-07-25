@@ -15,6 +15,7 @@
       >
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
         <!-- <div>{{ objSelectInfo?.component }}</div> -->
+        <v-t-advertising />
         <component :is="objSelectInfo?.component" :info="objSelectInfo" />
       </el-scrollbar>
     </el-container>
@@ -22,12 +23,15 @@
 </template>
 
 <script>
+import VTAdvertising from "@/components/VTAdvertising";
 import VTMenu from "@/components/VTMenu";
+
 import { arrMenuListTemp } from "@/config/menuList";
 import { navigateTo, navigateBack } from "@/kits";
 
 export default {
   components: {
+    VTAdvertising,
     VTMenu,
   },
   data() {
