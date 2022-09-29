@@ -133,6 +133,13 @@ export const arrMenuListTemp = [
         component: "DetailJs",
         pageName: "PageJs_DetailJsIconfontSelectAll",
       },
+      {
+        title: "节流",
+        icon: "icon-color",
+        desc: "装饰器模式(节流)",
+        component: "DetailJs",
+        pageName: "PageJs_DetailJsThrottle",
+      },
     ],
   },
   {

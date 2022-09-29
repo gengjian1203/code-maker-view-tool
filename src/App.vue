@@ -21,7 +21,7 @@
         />
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
         <!-- <div>{{ objSelectInfo?.component }}</div> -->
-        <v-t-advertising />
+        <!-- <v-t-advertising /> -->
         <component :is="objSelectInfo?.component" :info="objSelectInfo" />
       </el-scrollbar>
     </el-container>

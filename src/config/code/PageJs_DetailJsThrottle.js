@@ -1,3 +1,8 @@
+export const content = [
+  {
+    title: "节流(Throttle)装饰器",
+    lang: "text/javascript",
+    code: `
 /**
  * 节流装饰器：固定一段时间内只有一次有效操作，第一次立即执行，且保证最后一次也会执行
  * 使用方法示例如下：
@@ -75,3 +80,6 @@ const Throttle = (gapTime = 200) => {
 };
 
 export default Throttle;
+    `,
+  },
+];
