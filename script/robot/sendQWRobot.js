@@ -9,6 +9,7 @@ const { execAxiosPOST } = require("../api")
 const sendQWRobot = async (webhook = '', params = {}) => {
   // console.log("sendQWRobot", webhook, params);
   const res = await execAxiosPOST(webhook, JSON.stringify(params))
+  console.log("sendQWRobot", res && res.data);
 
   return res
 }

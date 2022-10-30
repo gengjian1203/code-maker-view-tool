@@ -17,17 +17,16 @@ const genH5RobotParams = () => {
         title: "工具页部署结果",
         desc: ""
       },
-      emphasis_content: {
-        title: "100",
-        desc: "部署分支"
-      },
+      // emphasis_content: {
+      //   title: "100",
+      //   desc: "部署分支"
+      // },
       horizontal_content_list: [],
       jump_list: [
         {
           type: 1,
-          keyname: '最新页面',
-          value: "点击访问",
-          url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/"
+          url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/",
+          title: "最新页面",
         },
       ],
       card_action: {
