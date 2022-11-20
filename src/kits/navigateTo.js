@@ -7,8 +7,9 @@ import routerAppendParams from "./routerAppendParams";
  * @returns
  */
 export const navigateTo = (pageName = "", params = {}) => {
-  console.debug("navigateTo", pageName, params);
-  window.location.assign(routerAppendParams("#/", { pageName, ...params }));
+  const url = routerAppendParams("#/", { pageName, ...params });
+  console.debug("navigateTo", pageName, params, url);
+  window.location.assign(url);
 };
 
 export default navigateTo;

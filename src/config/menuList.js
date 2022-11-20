@@ -28,7 +28,7 @@ export const arrMenuListTemp = [
       },
       {
         title: "压缩图片",
-        icon: "icon-file-image",
+        icon: "icon-contacts1",
         desc: "Tinify压缩图片",
         component: "DetailToolTinifyImage",
         pageName: "PageTool_DetailToolTinifyImage",
@@ -53,6 +53,13 @@ export const arrMenuListTemp = [
         desc: "生成自定义宽高图片",
         component: "DetailToolCustomImage",
         pageName: "PageTool_DetailToolCustomImage",
+      },
+      {
+        title: "解析字符串",
+        icon: "icon-text",
+        desc: "解析路由以及参数",
+        component: "DetailToolParseUrl",
+        pageName: "PageTool_DetailToolParseUrl",
       },
       // {
       //   title: "测试模块",

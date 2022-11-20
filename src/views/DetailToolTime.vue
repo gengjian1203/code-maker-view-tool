@@ -7,24 +7,10 @@
           <v-t-item label="时间戳" type="custom">
             <template #custom>
               <div class="flex-start-h detail-tool-time-item">
-                <el-input
-                  type="text"
-                  v-model="strTimestampValue"
-                  placeholder="1638108325790"
-                  clearable
-                />
-                <el-button
-                  v-if="strTimestampValue"
-                  type="primary"
-                  @click="handleTransformTimestampClick"
-                  >转换当前时间</el-button
-                >
-                <el-button
-                  v-else
-                  type="primary"
-                  @click="handleGetTimestampClick"
-                  >获取当前时间</el-button
-                >
+                <el-input type="text" v-model="strTimestampValue" placeholder="1638108325790" clearable />
+                <el-button v-if="strTimestampValue" type="primary" @click="handleTransformTimestampClick">转换当前时间
+                </el-button>
+                <el-button v-else type="primary" @click="handleGetTimestampClick">获取当前时间</el-button>
               </div>
             </template>
           </v-t-item>
@@ -46,13 +32,8 @@
           <v-t-item label="日期时间" type="custom">
             <template #custom>
               <div class="flex-start-h detail-tool-time-item">
-                <el-date-picker
-                  v-model="strTimestampValue2"
-                  type="datetime"
-                  placeholder="请选择日期"
-                  format="YYYY-MM-DD hh:mm:ss"
-                  value-format="x"
-                />
+                <el-date-picker v-model="strTimestampValue2" type="datetime" placeholder="请选择日期"
+                  format="YYYY-MM-DD hh:mm:ss" value-format="x" />
               </div>
             </template>
           </v-t-item>
@@ -120,10 +101,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.el-input + .el-button {
-  margin-left: var(--margin-xs);
-}
-
 .detail-tool-time-item {
   width: 100%;
 }

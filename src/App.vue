@@ -1,24 +1,14 @@
 <template>
   <el-container class="app-wrap">
     <!-- 侧边导航 -->
-    <el-scrollbar
-      style="width: auto; height: 100%"
-      wrap-style="width: 100%; height: 100%; box-sizing: border-box;"
-    >
+    <el-scrollbar style="width: auto; height: 100%" wrap-style="width: 100%; height: 100%; box-sizing: border-box;">
       <v-t-menu :arrMenuList="arrMenuList" @onMenuChange="handleMenuChange" />
     </el-scrollbar>
     <!-- 内容 -->
     <el-container class="app-body">
-      <el-scrollbar
-        style="width: 100%; height: 100%"
-        wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-base);"
-      >
-        <el-alert
-          v-if="!isApiActive"
-          style="margin-bottom: 4px"
-          title="后台接口激活中"
-          type="warning"
-        />
+      <el-scrollbar style="width: 100%; height: 100%"
+        wrap-style="width: 100%; height: 100%; box-sizing: border-box; padding: var(--padding-base);">
+        <el-alert v-if="!isApiActive" style="margin-bottom: 4px" title="后台接口激活中" type="warning" />
         <!-- <router-view v-wechat-title="$route.meta.title" /> -->
         <!-- <div>{{ objSelectInfo?.component }}</div> -->
         <!-- <v-t-advertising /> -->
@@ -65,7 +55,7 @@ export default {
         };
 
         findPage(arrMenuListTemp);
-        // console.log("Watch pageQuery", this.objSelectInfo);
+        console.log("Watch pageQuery", this.objSelectInfo);
       } else {
         const pageName = arrMenuListTemp[0]?.pageName || "empty";
         navigateTo(pageName);
