@@ -65,7 +65,7 @@ class FetchManager {
   execAxiosPOST = async (url = "", params = {}, config = {}) => {
     let res = {};
     try {
-      await axios.post(url, params, config);
+      res = await axios.post(url, params, config);
       console.debug("FetchManager post", res);
     } catch (e) {
       console.debug("FetchManager post", e);

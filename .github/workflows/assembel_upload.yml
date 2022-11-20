@@ -1,0 +1,34 @@
+# 工作流名称
+name: assembel_upload
+
+# 触发工作流程的事件
+on:
+  push:
+    # 触发分支
+    branches: 
+      - master
+
+# 工作流作业
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      # 使用别人封装好的的action，用于clone该仓库的源码到工作流中
+      - name: Step1 clone checkout
+        uses: actions/checkout@v3
+
+      # 在工作流中安装node环境（必需，这样才能在后续工作流程中运行 npm install 等指令，否则会报错）
+      - name: Step2 setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14 # 指定node版本
+
+      # 在工作流安装node依赖 
+      - name: Step3 install node_modules
+        run: |
+          npm install
+
+      # 执行上传脚本
+      - name: Step4 upload
+        run: |
+          npm run upload
