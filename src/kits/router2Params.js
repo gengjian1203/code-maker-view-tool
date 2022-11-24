@@ -15,8 +15,6 @@ const router2ParamsCore = (strRouter) => {
   if (nIndexPath >= 0) {
     strResultPath = strRouterTmp.substring(0, nIndexPath);
     strParam = strRouterTmp.slice(nIndexPath + 1);
-  } else {
-    strResultPath = "/";
   }
 
   const arrParam = strParam.split("&");
