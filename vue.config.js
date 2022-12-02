@@ -6,7 +6,7 @@ function resolve(dir) {
 
 module.exports = {
   publicPath: ".", // 基本路径
-  outputDir: "./view_tool", // 输出文件目录
+  outputDir: "./viewTool", // 输出文件目录
   chainWebpack: (config) => {
     config.resolve.alias
       .set("@", resolve("src"))

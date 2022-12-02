@@ -6,7 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "clean": "rm -rf ./view_tool",
+    "clean": "rm -rf ./viewTool",
     "test": "node ./script/uploadWeb.js",
     "upload": "yarn clean && vue-cli-service build && node ./script/uploadWeb.js"
   },

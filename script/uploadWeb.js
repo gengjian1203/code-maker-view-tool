@@ -25,13 +25,13 @@ const genH5RobotParams = () => {
       jump_list: [
         {
           type: 1,
-          url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/",
+          url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/viewTool/index.html#/",
           title: "最新页面",
         },
       ],
       card_action: {
         type: 1,
-        url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/"
+        url: "https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/viewTool/index.html#/"
       }
     }
   }
@@ -53,13 +53,13 @@ const main = async () => {
   const result = await ci.cloud.uploadStaticStorage({
     project,
     env: "prod-5gkxku5cdb510bb2",
-    path: "./view_tool",
-    remotePath: "/view_tool",
+    path: "./viewTool",
+    remotePath: "/viewTool",
   });
 
   console.log("静态网站完毕.", result);
   console.log(
-    `部署地址：https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/view_tool/index.html#/`
+    `部署地址：https://prod-5gkxku5cdb510bb2-1259256375.tcloudbaseapp.com/viewTool/index.html#/`
   );
 
   await sendQWRobot(webhook, genH5RobotParams())
