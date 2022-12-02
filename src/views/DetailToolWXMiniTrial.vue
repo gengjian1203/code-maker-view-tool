@@ -258,7 +258,7 @@ export default {
         }
       });
       const path =
-        trialPath + encodeURIComponent(routerAppendParams("", params));
+        trialPath + encodeURIComponent(routerAppendParams("", params).replace(/#/, ''));
 
       // console.log(
       //   "handleTrialCreateLinkBtnClick",
