@@ -163,7 +163,6 @@ export default {
       QRCODE_SIZE: 236,
       QRCODE_PADDING: 32,
       QRCODE_BORDER_RADIUS: 10,
-      LOGO_SIZE: 72,
       CANVAS_SIZE: 300,
       //
       isShowCanvas: false, // 是否生成二维码
@@ -251,28 +250,35 @@ export default {
         trialPath = `${trialPath}.html`;
       }
 
-      const params = {};
+      // 方法一
+      let path = encodeURIComponent(trialPath)
       this.arrTrialParams.forEach((item, index) => {
         if (item.key && item.value) {
-          params[item.key] = item.value;
+          path += 
+            `${index === 0 ? '%3F' : '%26'}` + 
+            `${item.key}%3D${item.value}`
         }
       });
-      const path =
-        trialPath + encodeURIComponent(routerAppendParams("", params).replace(/#/, ''));
 
-      // console.log(
-      //   "handleTrialCreateLinkBtnClick",
-      //   this.strTrialAppid,
-      //   this.strTrialPath,
-      //   params,
-      //   path
-      // );
+      // 方法二
+      // const params = {};
+      // this.arrTrialParams.forEach((item, index) => {
+      //   if (item.key && item.value) {
+      //     params[item.key] = item.value;
+      //   }
+      // });
+      // let path =
+      //   trialPath + routerAppendParams("", params).replace(/#/, '');
+
+      // path = path.replace(/\//g, '%2F').replace(/\?/g, '%3F').replace(/\&/g, '%26').replace(/\=/g, '%3D')
+
       // 体验版链接示例
       // https://open.weixin.qq.com/sns/getexpappinfo?appid=wx534b0be83d03a625&path=packages/taro-yum-common/start/index.html%3FactivityCode%3DGB1640082899762%26productType%3D1%26linkId%3D500023935%26userId%3DWangLei%26storeId%3DPS1729%26channelId%3Dqywx%26pageName%3DgrouponShareEntry
       this.strTrialLink =
         `https://open.weixin.qq.com/sns/getexpappinfo` +
         `?appid=${this.strTrialAppid}` +
-        `&path=${path}`;
+        `&path=${path}` + 
+        `#wechat-redirect`
 
       this.arrTrialHistoryLinkList.unshift({
         time: getStringDate().timeString,
